@@ -16,7 +16,7 @@ Owera CLI is an AI-powered web application development tool that turns your app 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/owera/owera-cli.git
+git clone https://github.com/rrecio/owera-cli.git
 cd owera-cli
 ```
 
