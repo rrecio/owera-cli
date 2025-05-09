@@ -26,7 +26,7 @@ setup(
     description="AI-powered web application development tool",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/owera/owera-cli",
+    url="https://github.com/rrecio/owera-cli",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
