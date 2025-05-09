@@ -2,7 +2,7 @@
 
 Owera CLI is an AI-powered web application development tool that turns your app ideas into working software. It uses a team of specialized AI agents to design, implement, test, and validate your web application features.
 
-https://owera.ai
+https://cli.owera.ai
 
 ## Features
 
