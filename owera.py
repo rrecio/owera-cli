@@ -47,15 +47,6 @@ class Task:
 
 class Project:
     def __init__(self, specs):
-        logging.basicConfig(
-            level=logging.DEBUG,
-            format='%(asctime)s: %(levelname)s: %(message)s',
-            handlers=[
-                logging.FileHandler('development.log'),
-                logging.StreamHandler(sys.stdout)
-            ]
-        )
-
         logging.info("Initializing project with specs")
         self.specs = specs
         # Validate specs structure
@@ -92,7 +83,7 @@ class Agent:
             prompt = self.generate_prompt(task, project)
             logging.debug(f"{self.role} prompt: {prompt}")
             logging.info(f"{self.role} is working on: {task.description}")
-            response = ollama.generate(model="qwen2.5-coder:7b", prompt=prompt, options={"timeout": 60})['response']
+            response = ollama.generate(model="qwen2.5-coder:14b", prompt=prompt, options={"timeout": 60})['response']
             logging.debug(f"{self.role} raw response: {response}")
             # Only extract code for UI Specialist and Developer
             if self.role in ["UI Specialist", "Developer"]:
@@ -258,7 +249,7 @@ def parse_spec_string(spec_string):
     )
     try:
         logging.info("Sending request to Ollama for JSON parsing...")
-        response = ollama.generate(model="qwen2.5-coder:7b", prompt=prompt, options={"timeout": 60})['response']
+        response = ollama.generate(model="qwen2.5-coder:14b", prompt=prompt, options={"timeout": 60})['response']
         logging.debug(f"Raw JSON parsing response: {response}")
         parsed = json.loads(response)
         if "project" not in parsed:
