@@ -1,0 +1,9 @@
+flask==3.0.2
+flask-sqlalchemy==3.1.1
+pyjwt==2.8.0
+python-dotenv==1.0.1
+requests==2.31.0
+gitpython==3.1.42
+click==8.1.7
+tqdm==4.66.2
+ollama==0.1.6 
