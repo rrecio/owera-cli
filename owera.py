@@ -118,12 +118,24 @@ class Agent:
         code_blocks = re.findall(r'```python\n(.*?)\n```', response, re.DOTALL)
         if code_blocks:
             return code_blocks[0].strip()
+        # Broader extraction for Python code
         lines = response.split('\n')
-        code_lines = [line for line in lines if any(line.strip().startswith(prefix) for prefix in ('@app.route', 'def ', 'from ', 'import ', 'if __name__'))]
+        code_lines = []
+        in_code = False
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            if line.startswith(('@app.route', 'def ', 'from ', 'import ', 'if __name__')) or in_code:
+                code_lines.append(line)
+                in_code = True
+            # Stop collecting if we hit a non-code line after starting
+            elif in_code and not (line.startswith(('#', 'return', 'if ', 'for ', 'while ', 'try ', 'except ', 'with ', 'class ')) or any(line.startswith(prefix) for prefix in ('courses =', 'user =', 'enrollment ='))):
+                break
         if code_lines:
             return '\n'.join(code_lines).strip()
         logging.warning(f"No code found in response: {response}")
-        return "# Placeholder: No implementation generated"
+        return f"@app.route('/{self.feature.name}')\ndef {self.feature.name}():\n    return 'Placeholder: {self.feature.name} route'"
 
     def generate_prompt(self, task, project):
         raise NotImplementedError
@@ -152,6 +164,7 @@ class Developer(Agent):
     def generate_prompt(self, task, project):
         tech_stack = project.specs["project"]["tech_stack"]
         constraints = ", ".join(task.feature.constraints) if task.feature.constraints else "clean, modular code"
+        self.feature = task.feature  # Store feature for use in extract_code
         if task.type == "implement":
             design = project.designs.get(task.feature.name, "")
             return (f"Provide only the Python code for a Flask route to implement '{task.feature.name}' in {tech_stack['backend']}. "
@@ -416,12 +429,20 @@ def register():
 
 @app.route('/')
 def home():
-    return redirect(url_for('course_list'))
+    try:
+        return redirect(url_for('course_list'))
+    except:
+        return "Error: 'course_list' route not found. Please check if the route was generated correctly.", 500
 
 # Fallback route for debugging
 @app.route('/debug')
 def debug():
     return "Debug: App is running. Check if the expected routes (e.g., course_list) are defined."
+
+# Fallback for missing templates
+@app.errorhandler(500)
+def internal_error(error):
+    return "Internal Server Error: A template might be missing. Please check the logs.", 500
 
 with app.app_context():
     db.create_all()
@@ -508,9 +529,13 @@ if __name__ == "__main__":
         with open(f"{output_dir}/templates/register.html", "w") as f:
             f.write(register_html)
 
+        # Log the templates being created
+        logging.info("Generated templates:")
         for feature_name, design in project.designs.items():
-            with open(f"{output_dir}/templates/{feature_name}.html", "w") as f:
+            template_path = f"{output_dir}/templates/{feature_name}.html"
+            with open(template_path, "w") as f:
                 f.write(design)
+            logging.info(f"Created template: {template_path}")
 
         with open(f"{output_dir}/docs/README.md", "w") as f:
             f.write(f"# {project.specs['project']['name']}\n\n"
