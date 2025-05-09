@@ -23,7 +23,8 @@ class UISpecialist(BaseAgent):
     
     def process_response(self, response: str, task: Task, project: Project) -> None:
         """Process the generated UI template."""
-        project.designs[task.feature.name] = response
+        template_name = task.feature.name.replace("_", "")  # Remove underscores for template name
+        project.designs[template_name] = response
         task.feature.has_design = True
     
     def extract_code(self, response: str) -> str:

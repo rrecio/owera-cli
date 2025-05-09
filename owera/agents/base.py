@@ -3,7 +3,8 @@ from typing import Optional, Dict, Any
 import logging
 import requests
 import ollama
-from ..models.base import Task, Project, Feature
+from datetime import datetime
+from ..models.base import Task, Project, Feature, Issue
 from ..config import config
 
 class OweraError(Exception):
@@ -11,7 +12,7 @@ class OweraError(Exception):
     pass
 
 class AgentError(OweraError):
-    """Raised when an agent encounters an error."""
+    """Base class for agent-related errors."""
     pass
 
 class TimeoutError(AgentError):
@@ -49,16 +50,22 @@ class BaseAgent(ABC):
             task.completed_at = datetime.now()
             self.logger.info(f"Completed task: {task.description}")
             
-        except requests.exceptions.Timeout:
+        except TimeoutError as e:
             self.logger.error(f"Task timed out: {task.description}")
             task.status = "failed"
-            project.issues.append(Issue(f"{self.role} timed out", task.feature))
-            raise TimeoutError(f"{self.role} timed out while processing: {task.description}")
+            project.issues.append(Issue(
+                description=f"{self.role} timed out: {str(e)}",
+                feature=task.feature
+            ))
+            raise
             
         except Exception as e:
             self.logger.error(f"Task failed: {str(e)}")
             task.status = "failed"
-            project.issues.append(Issue(f"{self.role} failed: {str(e)}", task.feature))
+            project.issues.append(Issue(
+                description=f"{self.role} failed: {str(e)}",
+                feature=task.feature
+            ))
             raise AgentError(f"{self.role} encountered an error: {str(e)}")
     
     def _get_model_response(self, prompt: str) -> str:
@@ -68,18 +75,17 @@ class BaseAgent(ABC):
                 model=config.MODEL_NAME,
                 prompt=prompt,
                 options={"timeout": config.TIMEOUT}
-            )['response']
-            return response
-        except requests.exceptions.Timeout:
-            raise TimeoutError(f"Model request timed out after {config.TIMEOUT} seconds")
+            )
+            return response.get("response", "")
         except Exception as e:
-            raise AgentError(f"Failed to get model response: {str(e)}")
+            self.logger.error(f"Error getting model response: {e}")
+            raise TimeoutError("Request timed out") from e
     
     def _post_process_code(self, code: str) -> str:
         """Post-process generated code."""
         code = self.fix_decorator_usage(code)
         code = self.remove_unnecessary_imports(code)
-        return code
+        return code.strip()
     
     def fix_decorator_usage(self, code: str) -> str:
         """Fix incorrect usage of decorators."""

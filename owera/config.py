@@ -1,20 +1,25 @@
 import os
 from typing import Dict, Any
-from dataclasses import dataclass
 
-@dataclass
 class Config:
-    """Configuration settings for Owera CLI."""
-    SECRET_KEY: str = os.getenv('OWERA_SECRET_KEY', 'your-secret-key')
-    DATABASE_URI: str = os.getenv('OWERA_DATABASE_URI', 'sqlite:///database.db')
-    MODEL_NAME: str = os.getenv('OWERA_MODEL', 'qwen2.5-coder:7b')
-    TIMEOUT: int = int(os.getenv('OWERA_TIMEOUT', '60'))
-    DEBUG: bool = os.getenv('OWERA_DEBUG', 'False').lower() == 'true'
-    LOG_LEVEL: str = os.getenv('OWERA_LOG_LEVEL', 'INFO')
-    
+    """Configuration class for Owera."""
+    def __init__(self, **kwargs):
+        """Initialize configuration."""
+        self.SECRET_KEY = kwargs.get('SECRET_KEY') or os.getenv('OWERA_SECRET_KEY', 'your-secret-key')
+        self.DATABASE_URI = kwargs.get('DATABASE_URI') or os.getenv('OWERA_DATABASE_URI', 'sqlite:///database.db')
+        self.MODEL_NAME = kwargs.get('MODEL_NAME') or os.getenv('OWERA_MODEL', 'qwen2.5-coder:7b')
+        self.DEBUG = kwargs.get('DEBUG') or os.getenv('OWERA_DEBUG', 'false').lower() == 'true'
+        self.LOG_LEVEL = kwargs.get('LOG_LEVEL') or os.getenv('OWERA_LOG_LEVEL', 'INFO')
+        self.MAX_ITERATIONS = int(kwargs.get('MAX_ITERATIONS') or os.getenv('OWERA_MAX_ITERATIONS', '10'))
+        
+        try:
+            self.TIMEOUT = int(kwargs.get('TIMEOUT') or os.getenv('OWERA_TIMEOUT', '60'))
+        except ValueError:
+            raise ValueError("TIMEOUT must be a valid integer")
+
     @classmethod
     def from_dict(cls, config_dict: Dict[str, Any]) -> 'Config':
-        """Create a Config instance from a dictionary."""
-        return cls(**{k: v for k, v in config_dict.items() if k in cls.__dataclass_fields__})
+        """Create configuration from dictionary."""
+        return cls(**config_dict)
 
 config = Config() 

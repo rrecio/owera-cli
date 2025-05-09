@@ -19,6 +19,7 @@ class Developer(BaseAgent):
         
         if task.type == "implement":
             design = project.designs.get(task.feature.name, "")
+            template_name = task.feature.name.replace("_", "")  # Remove underscores for template name
             return (
                 f"Generate a Flask route for the feature '{task.feature.name}' in {tech_stack['backend']}. "
                 f"Return only the Python code, without explanations, comments, or imports "
@@ -26,7 +27,7 @@ class Developer(BaseAgent):
                 f"The models (User, Course, Enrollment) are already defined in the file, so do NOT add any import statements for them. "
                 f"Define the route function as 'def {task.feature.name}():' to match the feature name. "
                 f"Use the route path '@app.route('/{task.feature.name}')'. "
-                f"Render the template '{task.feature.name}.html'. "
+                f"Render the template '{template_name}.html'. "
                 f"If the feature involves displaying items (e.g., courses), query the database using Course.query.all() "
                 f"and pass the results to the template as 'items'. "
                 f"If authentication is required, use the @login_required decorator without parentheses. "

@@ -1,0 +1,430 @@
+2025-05-09 17:18:13,935 - owera.main - ERROR - Failed to build app: Either --spec or --spec-file must be provided
+2025-05-09 17:18:23,333 - owera.main - ERROR - Failed to build app: 'Config' object has no attribute 'MAX_ITERATIONS'
+2025-05-09 17:18:44,514 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:18:44,514 - owera.agent.project manager - INFO - Planned 2 tasks
+2025-05-09 17:18:44,514 - owera.agent.ui specialist - INFO - Starting task: Design home
+2025-05-09 17:19:08,508 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:19:08,509 - owera.agent.ui specialist - ERROR - Task failed: name 'datetime' is not defined
+2025-05-09 17:19:08,510 - owera.main - ERROR - Failed to build app: UI Specialist encountered an error: name 'datetime' is not defined
+2025-05-09 17:19:39,870 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:19:39,870 - owera.agent.project manager - INFO - Planned 2 tasks
+2025-05-09 17:19:39,870 - owera.agent.ui specialist - INFO - Starting task: Design home
+2025-05-09 17:20:02,221 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:20:02,223 - owera.agent.ui specialist - INFO - Completed task: Design home
+2025-05-09 17:20:02,223 - owera.agent.ui specialist - INFO - Starting task: Design home_page
+2025-05-09 17:20:09,431 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:20:09,433 - owera.agent.ui specialist - INFO - Completed task: Design home_page
+2025-05-09 17:20:09,434 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:20:09,435 - owera.agent.project manager - INFO - Planned 4 tasks
+2025-05-09 17:20:09,435 - owera.agent.developer - INFO - Starting task: Implement home
+2025-05-09 17:20:15,189 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:20:15,191 - owera.agent.developer - ERROR - Task failed: 'backend'
+2025-05-09 17:20:15,191 - owera.main - ERROR - Failed to build app: Developer encountered an error: 'backend'
+2025-05-09 17:31:50,892 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:31:50,893 - owera.agent.project manager - INFO - Planned 2 tasks
+2025-05-09 17:31:50,893 - owera.agent.ui specialist - INFO - Starting task: Design home
+2025-05-09 17:32:12,771 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:32:12,784 - owera.agent.ui specialist - INFO - Completed task: Design home
+2025-05-09 17:32:12,784 - owera.agent.ui specialist - INFO - Starting task: Design home_page
+2025-05-09 17:32:20,376 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:32:20,376 - owera.agent.ui specialist - INFO - Completed task: Design home_page
+2025-05-09 17:32:20,377 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:32:20,378 - owera.agent.project manager - INFO - Planned 4 tasks
+2025-05-09 17:32:20,378 - owera.agent.developer - INFO - Starting task: Implement home
+2025-05-09 17:32:24,107 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:32:24,109 - owera.agent.developer - INFO - Completed task: Implement home
+2025-05-09 17:32:24,109 - owera.agent.developer - INFO - Starting task: Implement home_page
+2025-05-09 17:32:27,099 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:32:27,099 - owera.agent.developer - INFO - Completed task: Implement home_page
+2025-05-09 17:32:27,099 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:32:27,099 - owera.agent.project manager - INFO - Planned 6 tasks
+2025-05-09 17:32:27,099 - owera.agent.qa specialist - INFO - Starting task: Test home
+2025-05-09 17:32:31,099 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:32:31,100 - owera.agent.qa specialist - INFO - Feature 'home' passed QA testing
+2025-05-09 17:32:31,100 - owera.agent.qa specialist - INFO - Completed task: Test home
+2025-05-09 17:32:31,100 - owera.agent.qa specialist - INFO - Starting task: Test home_page
+2025-05-09 17:32:36,944 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:32:36,946 - owera.agent.qa specialist - WARNING - Found issues in feature 'home_page': - **Functionality**: The `home_page` route works as described, rendering the 'home_page.html' template with all courses fetched from the database.
+- **Security**: There are no security vulnerabilities noted, as both routes use `@login_required`, ensuring that only authenticated users can access these pages.
+- **Performance**: No obvious performance issues were identified; both routes fetch all courses using a simple query and render a static HTML template, which should be efficient for most applications.
+- **User Experience**: The interface is intuitive and responsive, with a clear welcome message centered on the page.
+2025-05-09 17:32:36,947 - owera.agent.qa specialist - INFO - Completed task: Test home_page
+2025-05-09 17:32:36,947 - owera.agent.developer - INFO - Starting task: Fix: - **Functionality**: The `home_page` route works as described, rendering the 'home_page.html' template with all courses fetched from the database.
+- **Security**: There are no security vulnerabilities noted, as both routes use `@login_required`, ensuring that only authenticated users can access these pages.
+- **Performance**: No obvious performance issues were identified; both routes fetch all courses using a simple query and render a static HTML template, which should be efficient for most applications.
+- **User Experience**: The interface is intuitive and responsive, with a clear welcome message centered on the page.
+2025-05-09 17:32:41,287 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:32:41,287 - owera.agent.developer - INFO - Removing unnecessary import: from models import Course
+2025-05-09 17:32:41,287 - owera.agent.developer - INFO - Completed task: Fix: - **Functionality**: The `home_page` route works as described, rendering the 'home_page.html' template with all courses fetched from the database.
+- **Security**: There are no security vulnerabilities noted, as both routes use `@login_required`, ensuring that only authenticated users can access these pages.
+- **Performance**: No obvious performance issues were identified; both routes fetch all courses using a simple query and render a static HTML template, which should be efficient for most applications.
+- **User Experience**: The interface is intuitive and responsive, with a clear welcome message centered on the page.
+2025-05-09 17:32:41,287 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:32:41,287 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:32:41,288 - owera.agent.product owner - INFO - Starting task: Review home
+2025-05-09 17:32:41,724 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:32:41,724 - owera.agent.product owner - INFO - Completed task: Review home
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:32:41,725 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:32:41,725 - owera.main - WARNING - Reached maximum iterations
+2025-05-09 17:32:41,725 - owera.utils.code_generator - INFO - Generating output files
+2025-05-09 17:32:41,726 - owera.utils.code_generator - INFO - Generated app code at my-blog/src/app.py
+2025-05-09 17:32:41,726 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/home.html
+2025-05-09 17:32:41,726 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/home_page.html
+2025-05-09 17:32:41,727 - owera.utils.code_generator - ERROR - Failed to generate output: [Errno 2] No such file or directory: 'development.log' -> 'my-blog/logs/development.log'
+2025-05-09 17:32:41,727 - owera.main - ERROR - Failed to build app: Failed to generate output: [Errno 2] No such file or directory: 'development.log' -> 'my-blog/logs/development.log'
+2025-05-09 17:36:28,267 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:36:28,268 - owera.agent.project manager - INFO - Planned 2 tasks
+2025-05-09 17:36:28,268 - owera.agent.ui specialist - INFO - Starting task: Design home
+2025-05-09 17:37:47,047 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:37:47,051 - owera.agent.ui specialist - INFO - Completed task: Design home
+2025-05-09 17:37:47,051 - owera.agent.ui specialist - INFO - Starting task: Design home_page
+2025-05-09 17:37:54,847 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:37:54,849 - owera.agent.ui specialist - INFO - Completed task: Design home_page
+2025-05-09 17:37:54,851 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:37:54,851 - owera.agent.project manager - INFO - Planned 4 tasks
+2025-05-09 17:37:54,851 - owera.agent.developer - INFO - Starting task: Implement home
+2025-05-09 17:38:10,047 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:38:10,050 - owera.agent.developer - INFO - Completed task: Implement home
+2025-05-09 17:38:10,050 - owera.agent.developer - INFO - Starting task: Implement home_page
+2025-05-09 17:38:13,277 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:38:13,278 - owera.agent.developer - INFO - Completed task: Implement home_page
+2025-05-09 17:38:13,278 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:38:13,279 - owera.agent.project manager - INFO - Planned 6 tasks
+2025-05-09 17:38:13,279 - owera.agent.qa specialist - INFO - Starting task: Test home
+2025-05-09 17:38:22,276 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:38:22,279 - owera.agent.qa specialist - INFO - Feature 'home' passed QA testing
+2025-05-09 17:38:22,279 - owera.agent.qa specialist - INFO - Completed task: Test home
+2025-05-09 17:38:22,279 - owera.agent.qa specialist - INFO - Starting task: Test home_page
+2025-05-09 17:38:23,973 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:38:23,973 - owera.agent.qa specialist - INFO - Feature 'home_page' passed QA testing
+2025-05-09 17:38:23,973 - owera.agent.qa specialist - INFO - Completed task: Test home_page
+2025-05-09 17:38:23,974 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:38:23,974 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:38:23,974 - owera.agent.product owner - INFO - Starting task: Review home
+2025-05-09 17:38:24,356 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:38:24,357 - owera.agent.product owner - INFO - Completed task: Review home
+2025-05-09 17:38:24,357 - owera.agent.product owner - INFO - Starting task: Review home_page
+2025-05-09 17:38:45,339 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:38:45,341 - owera.agent.product owner - INFO - Completed task: Review home_page
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:38:45,341 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:38:45,341 - owera.main - WARNING - Reached maximum iterations
+2025-05-09 17:38:45,341 - owera.utils.code_generator - INFO - Generating output files
+2025-05-09 17:38:45,342 - owera.utils.code_generator - INFO - Generated app code at my-blog/src/app.py
+2025-05-09 17:38:45,343 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/home.html
+2025-05-09 17:38:45,343 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/home_page.html
+2025-05-09 17:38:45,450 - owera.main - INFO - App generated successfully in my-blog/
+2025-05-09 17:45:10,529 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:45:10,529 - owera.agent.project manager - INFO - Planned 2 tasks
+2025-05-09 17:45:10,529 - owera.agent.ui specialist - INFO - Starting task: Design home
+2025-05-09 17:45:39,088 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:45:39,093 - owera.agent.ui specialist - INFO - Completed task: Design home
+2025-05-09 17:45:39,093 - owera.agent.ui specialist - INFO - Starting task: Design home_page
+2025-05-09 17:45:52,925 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:45:52,928 - owera.agent.ui specialist - INFO - Completed task: Design home_page
+2025-05-09 17:45:52,929 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:45:52,929 - owera.agent.project manager - INFO - Planned 4 tasks
+2025-05-09 17:45:52,929 - owera.agent.developer - INFO - Starting task: Implement home
+2025-05-09 17:45:57,712 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:45:57,713 - owera.agent.developer - INFO - Completed task: Implement home
+2025-05-09 17:45:57,713 - owera.agent.developer - INFO - Starting task: Implement home_page
+2025-05-09 17:46:00,455 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:46:00,457 - owera.agent.developer - INFO - Completed task: Implement home_page
+2025-05-09 17:46:00,457 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:46:00,458 - owera.agent.project manager - INFO - Planned 6 tasks
+2025-05-09 17:46:00,458 - owera.agent.qa specialist - INFO - Starting task: Test home
+2025-05-09 17:46:09,524 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:46:09,546 - owera.agent.qa specialist - WARNING - Found issues in feature 'home': - **Functionality**: The `/home` route works as expected, displaying a list of courses on the home page. However, the `/home_page` route does not require any login and serves a static homepage which is not aligned with the functionality described for `/home`.
+  
+- **Security**: The use of `@login_required` decorator on `/home` ensures that only authenticated users can access it, which is secure.
+  
+- **Performance**: There are no obvious performance issues in terms of rendering or data handling as long as the number of courses is not extremely large.
+  
+- **User Experience**: The interface is clean and intuitive with Tailwind CSS classes ensuring a responsive design. However, the links within the navigation bar are placeholders (`href="#"`).
+2025-05-09 17:46:09,546 - owera.agent.qa specialist - INFO - Completed task: Test home
+2025-05-09 17:46:09,546 - owera.agent.qa specialist - INFO - Starting task: Test home_page
+2025-05-09 17:46:16,286 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:46:16,288 - owera.agent.qa specialist - WARNING - Found issues in feature 'home_page': - **Functionality:** The route `/home_page` renders `homepage.html`, which displays a welcome message with a hero section. It works as described.
+- **Security:** There are no clear security vulnerabilities in the provided code. However, ensure that the template is protected against cross-site scripting (XSS) attacks by escaping any user inputs before rendering.
+- **Performance:** The performance appears fine for a static page, but if there are significant load times or dynamic content, further optimization might be needed.
+- **User Experience:** The interface is intuitive and responsive. The hero section uses Tailwind CSS effectively for styling, ensuring a modern design.
+2025-05-09 17:46:16,288 - owera.agent.qa specialist - INFO - Completed task: Test home_page
+2025-05-09 17:46:16,288 - owera.agent.developer - INFO - Starting task: Fix: - **Functionality**: The `/home` route works as expected, displaying a list of courses on the home page. However, the `/home_page` route does not require any login and serves a static homepage which is not aligned with the functionality described for `/home`.
+  
+- **Security**: The use of `@login_required` decorator on `/home` ensures that only authenticated users can access it, which is secure.
+  
+- **Performance**: There are no obvious performance issues in terms of rendering or data handling as long as the number of courses is not extremely large.
+  
+- **User Experience**: The interface is clean and intuitive with Tailwind CSS classes ensuring a responsive design. However, the links within the navigation bar are placeholders (`href="#"`).
+2025-05-09 17:46:20,511 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:46:20,513 - owera.agent.developer - INFO - Completed task: Fix: - **Functionality**: The `/home` route works as expected, displaying a list of courses on the home page. However, the `/home_page` route does not require any login and serves a static homepage which is not aligned with the functionality described for `/home`.
+  
+- **Security**: The use of `@login_required` decorator on `/home` ensures that only authenticated users can access it, which is secure.
+  
+- **Performance**: There are no obvious performance issues in terms of rendering or data handling as long as the number of courses is not extremely large.
+  
+- **User Experience**: The interface is clean and intuitive with Tailwind CSS classes ensuring a responsive design. However, the links within the navigation bar are placeholders (`href="#"`).
+2025-05-09 17:46:20,513 - owera.agent.developer - INFO - Starting task: Fix: - **Functionality:** The route `/home_page` renders `homepage.html`, which displays a welcome message with a hero section. It works as described.
+- **Security:** There are no clear security vulnerabilities in the provided code. However, ensure that the template is protected against cross-site scripting (XSS) attacks by escaping any user inputs before rendering.
+- **Performance:** The performance appears fine for a static page, but if there are significant load times or dynamic content, further optimization might be needed.
+- **User Experience:** The interface is intuitive and responsive. The hero section uses Tailwind CSS effectively for styling, ensuring a modern design.
+2025-05-09 17:46:24,400 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:46:24,401 - owera.agent.developer - INFO - Completed task: Fix: - **Functionality:** The route `/home_page` renders `homepage.html`, which displays a welcome message with a hero section. It works as described.
+- **Security:** There are no clear security vulnerabilities in the provided code. However, ensure that the template is protected against cross-site scripting (XSS) attacks by escaping any user inputs before rendering.
+- **Performance:** The performance appears fine for a static page, but if there are significant load times or dynamic content, further optimization might be needed.
+- **User Experience:** The interface is intuitive and responsive. The hero section uses Tailwind CSS effectively for styling, ensuring a modern design.
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:46:24,402 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:46:24,403 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:46:24,403 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:46:24,403 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:46:24,403 - owera.main - WARNING - Reached maximum iterations
+2025-05-09 17:46:24,403 - owera.utils.code_generator - INFO - Generating output files
+2025-05-09 17:46:24,406 - owera.utils.code_generator - INFO - Generated app code at my-blog/src/app.py
+2025-05-09 17:46:24,406 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/home.html
+2025-05-09 17:46:24,406 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/homepage.html
+2025-05-09 17:46:24,509 - owera.main - INFO - App generated successfully in my-blog/
+2025-05-09 17:51:36,456 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:51:36,456 - owera.agent.project manager - INFO - Planned 2 tasks
+2025-05-09 17:51:36,457 - owera.agent.ui specialist - INFO - Starting task: Design home
+2025-05-09 17:52:41,433 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:52:41,436 - owera.agent.ui specialist - INFO - Completed task: Design home
+2025-05-09 17:52:41,437 - owera.agent.ui specialist - INFO - Starting task: Design home_page
+2025-05-09 17:52:48,322 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:52:48,324 - owera.agent.ui specialist - INFO - Completed task: Design home_page
+2025-05-09 17:52:48,325 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:52:48,325 - owera.agent.project manager - INFO - Planned 4 tasks
+2025-05-09 17:52:48,325 - owera.agent.developer - INFO - Starting task: Implement home
+2025-05-09 17:52:53,700 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:52:53,703 - owera.agent.developer - INFO - Completed task: Implement home
+2025-05-09 17:52:53,703 - owera.agent.developer - INFO - Starting task: Implement home_page
+2025-05-09 17:52:56,022 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:52:56,023 - owera.agent.developer - INFO - Completed task: Implement home_page
+2025-05-09 17:52:56,024 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:52:56,024 - owera.agent.project manager - INFO - Planned 6 tasks
+2025-05-09 17:52:56,024 - owera.agent.qa specialist - INFO - Starting task: Test home
+2025-05-09 17:52:59,642 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:52:59,642 - owera.agent.qa specialist - INFO - Feature 'home' passed QA testing
+2025-05-09 17:52:59,642 - owera.agent.qa specialist - INFO - Completed task: Test home
+2025-05-09 17:52:59,642 - owera.agent.qa specialist - INFO - Starting task: Test home_page
+2025-05-09 17:53:06,254 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:53:06,257 - owera.agent.qa specialist - INFO - Feature 'home_page' passed QA testing
+2025-05-09 17:53:06,257 - owera.agent.qa specialist - INFO - Completed task: Test home_page
+2025-05-09 17:53:06,257 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:53:06,257 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:53:06,257 - owera.agent.product owner - INFO - Starting task: Review home
+2025-05-09 17:53:06,613 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:53:06,615 - owera.agent.product owner - INFO - Completed task: Review home
+2025-05-09 17:53:06,615 - owera.agent.product owner - INFO - Starting task: Review home_page
+2025-05-09 17:53:06,967 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:53:06,967 - owera.agent.product owner - INFO - Completed task: Review home_page
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:53:06,967 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:53:06,967 - owera.main - WARNING - Reached maximum iterations
+2025-05-09 17:53:06,967 - owera.utils.code_generator - INFO - Generating output files
+2025-05-09 17:53:06,968 - owera.utils.code_generator - INFO - Generated app code at my-blog/src/app.py
+2025-05-09 17:53:06,968 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/home.html
+2025-05-09 17:53:06,968 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/homepage.html
+2025-05-09 17:53:07,062 - owera.main - INFO - App generated successfully in my-blog/
+2025-05-09 17:54:31,455 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:54:31,456 - owera.agent.project manager - INFO - Planned 2 tasks
+2025-05-09 17:54:31,456 - owera.agent.ui specialist - INFO - Starting task: Design home
+2025-05-09 17:55:07,371 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:55:07,373 - owera.agent.ui specialist - INFO - Completed task: Design home
+2025-05-09 17:55:07,373 - owera.agent.ui specialist - INFO - Starting task: Design home_page
+2025-05-09 17:55:14,039 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:55:14,040 - owera.agent.ui specialist - INFO - Completed task: Design home_page
+2025-05-09 17:55:14,042 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:55:14,042 - owera.agent.project manager - INFO - Planned 4 tasks
+2025-05-09 17:55:14,042 - owera.agent.developer - INFO - Starting task: Implement home
+2025-05-09 17:55:19,683 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:55:19,684 - owera.agent.developer - INFO - Completed task: Implement home
+2025-05-09 17:55:19,684 - owera.agent.developer - INFO - Starting task: Implement home_page
+2025-05-09 17:55:21,901 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:55:21,903 - owera.agent.developer - INFO - Completed task: Implement home_page
+2025-05-09 17:55:21,903 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:55:21,903 - owera.agent.project manager - INFO - Planned 6 tasks
+2025-05-09 17:55:21,903 - owera.agent.qa specialist - INFO - Starting task: Test home
+2025-05-09 17:55:26,327 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:55:26,329 - owera.agent.qa specialist - INFO - Feature 'home' passed QA testing
+2025-05-09 17:55:26,329 - owera.agent.qa specialist - INFO - Completed task: Test home
+2025-05-09 17:55:26,329 - owera.agent.qa specialist - INFO - Starting task: Test home_page
+2025-05-09 17:55:27,047 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:55:27,048 - owera.agent.qa specialist - INFO - Feature 'home_page' passed QA testing
+2025-05-09 17:55:27,048 - owera.agent.qa specialist - INFO - Completed task: Test home_page
+2025-05-09 17:55:27,049 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:55:27,049 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:55:27,049 - owera.agent.product owner - INFO - Starting task: Review home
+2025-05-09 17:55:27,439 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:55:27,444 - owera.agent.product owner - INFO - Completed task: Review home
+2025-05-09 17:55:27,445 - owera.agent.product owner - INFO - Starting task: Review home_page
+2025-05-09 17:55:27,798 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:55:27,799 - owera.agent.product owner - INFO - Completed task: Review home_page
+2025-05-09 17:55:27,799 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:55:27,799 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:55:27,799 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:55:27,799 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:55:27,799 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:55:27,799 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:55:27,800 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:55:27,800 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:55:27,800 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:55:27,800 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:55:27,800 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:55:27,800 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:55:27,800 - owera.main - WARNING - Reached maximum iterations
+2025-05-09 17:55:27,801 - owera.utils.code_generator - INFO - Generating output files
+2025-05-09 17:55:27,802 - owera.utils.code_generator - INFO - Generated app code at my-blog/src/app.py
+2025-05-09 17:55:27,803 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/home.html
+2025-05-09 17:55:27,803 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/homepage.html
+2025-05-09 17:55:27,891 - owera.main - INFO - App generated successfully in my-blog/
+2025-05-09 17:56:32,467 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:56:32,467 - owera.agent.project manager - INFO - Planned 2 tasks
+2025-05-09 17:56:32,467 - owera.agent.ui specialist - INFO - Starting task: Design home
+2025-05-09 17:57:03,709 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:57:03,711 - owera.agent.ui specialist - INFO - Completed task: Design home
+2025-05-09 17:57:03,711 - owera.agent.ui specialist - INFO - Starting task: Design home_page
+2025-05-09 17:57:10,440 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:57:10,441 - owera.agent.ui specialist - INFO - Completed task: Design home_page
+2025-05-09 17:57:10,442 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:57:10,442 - owera.agent.project manager - INFO - Planned 4 tasks
+2025-05-09 17:57:10,443 - owera.agent.developer - INFO - Starting task: Implement home
+2025-05-09 17:57:15,534 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:57:15,536 - owera.agent.developer - INFO - Completed task: Implement home
+2025-05-09 17:57:15,536 - owera.agent.developer - INFO - Starting task: Implement home_page
+2025-05-09 17:57:17,736 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:57:17,737 - owera.agent.developer - INFO - Completed task: Implement home_page
+2025-05-09 17:57:17,738 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:57:17,738 - owera.agent.project manager - INFO - Planned 6 tasks
+2025-05-09 17:57:17,738 - owera.agent.qa specialist - INFO - Starting task: Test home
+2025-05-09 17:57:21,649 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:57:21,651 - owera.agent.qa specialist - INFO - Feature 'home' passed QA testing
+2025-05-09 17:57:21,651 - owera.agent.qa specialist - INFO - Completed task: Test home
+2025-05-09 17:57:21,651 - owera.agent.qa specialist - INFO - Starting task: Test home_page
+2025-05-09 17:57:22,380 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:57:22,381 - owera.agent.qa specialist - INFO - Feature 'home_page' passed QA testing
+2025-05-09 17:57:22,381 - owera.agent.qa specialist - INFO - Completed task: Test home_page
+2025-05-09 17:57:22,382 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:57:22,382 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:57:22,382 - owera.agent.product owner - INFO - Starting task: Review home
+2025-05-09 17:57:27,319 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:57:27,321 - owera.agent.product owner - INFO - Completed task: Review home
+2025-05-09 17:57:27,321 - owera.agent.product owner - INFO - Starting task: Review home_page
+2025-05-09 17:57:29,195 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:57:29,196 - owera.agent.product owner - INFO - Completed task: Review home_page
+2025-05-09 17:57:29,197 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:57:29,197 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:57:29,197 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:57:29,197 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:57:29,197 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:57:29,198 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:57:29,198 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:57:29,198 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:57:29,198 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:57:29,198 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:57:29,198 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:57:29,198 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:57:29,198 - owera.main - WARNING - Reached maximum iterations
+2025-05-09 17:57:29,199 - owera.utils.code_generator - INFO - Generating output files
+2025-05-09 17:57:29,200 - owera.utils.code_generator - INFO - Generated app code at my-blog/src/app.py
+2025-05-09 17:57:29,200 - owera.utils.code_generator - INFO - Created templates directory: my-blog/templates
+2025-05-09 17:57:29,200 - owera.utils.code_generator - INFO - Generated login template: my-blog/templates/login.html
+2025-05-09 17:57:29,201 - owera.utils.code_generator - INFO - Generated register template: my-blog/templates/register.html
+2025-05-09 17:57:29,201 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/home.html
+2025-05-09 17:57:29,202 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/homepage.html
+2025-05-09 17:57:29,305 - owera.main - INFO - App generated successfully in my-blog/
+2025-05-09 17:58:28,117 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:58:28,117 - owera.agent.project manager - INFO - Planned 2 tasks
+2025-05-09 17:58:28,117 - owera.agent.ui specialist - INFO - Starting task: Design home
+2025-05-09 17:58:43,397 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:58:43,398 - owera.agent.ui specialist - INFO - Completed task: Design home
+2025-05-09 17:58:43,398 - owera.agent.ui specialist - INFO - Starting task: Design home_page
+2025-05-09 17:58:50,981 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:58:50,982 - owera.agent.ui specialist - INFO - Completed task: Design home_page
+2025-05-09 17:58:50,982 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:58:50,982 - owera.agent.project manager - INFO - Planned 4 tasks
+2025-05-09 17:58:50,982 - owera.agent.developer - INFO - Starting task: Implement home
+2025-05-09 17:58:54,321 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:58:54,321 - owera.agent.developer - INFO - Completed task: Implement home
+2025-05-09 17:58:54,321 - owera.agent.developer - INFO - Starting task: Implement home_page
+2025-05-09 17:58:56,539 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:58:56,540 - owera.agent.developer - INFO - Completed task: Implement home_page
+2025-05-09 17:58:56,540 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:58:56,540 - owera.agent.project manager - INFO - Planned 6 tasks
+2025-05-09 17:58:56,540 - owera.agent.qa specialist - INFO - Starting task: Test home
+2025-05-09 17:58:58,795 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:58:58,797 - owera.agent.qa specialist - INFO - Feature 'home' passed QA testing
+2025-05-09 17:58:58,797 - owera.agent.qa specialist - INFO - Completed task: Test home
+2025-05-09 17:58:58,797 - owera.agent.qa specialist - INFO - Starting task: Test home_page
+2025-05-09 17:58:59,510 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:58:59,511 - owera.agent.qa specialist - INFO - Feature 'home_page' passed QA testing
+2025-05-09 17:58:59,511 - owera.agent.qa specialist - INFO - Completed task: Test home_page
+2025-05-09 17:58:59,511 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:58:59,511 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:58:59,511 - owera.agent.product owner - INFO - Starting task: Review home
+2025-05-09 17:58:59,861 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:58:59,861 - owera.agent.product owner - INFO - Completed task: Review home
+2025-05-09 17:58:59,861 - owera.agent.product owner - INFO - Starting task: Review home_page
+2025-05-09 17:59:00,209 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 17:59:00,209 - owera.agent.product owner - INFO - Completed task: Review home_page
+2025-05-09 17:59:00,210 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:59:00,210 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:59:00,210 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:59:00,210 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:59:00,210 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:59:00,210 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:59:00,210 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:59:00,211 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:59:00,211 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:59:00,211 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:59:00,211 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 17:59:00,211 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 17:59:00,211 - owera.main - WARNING - Reached maximum iterations
+2025-05-09 17:59:00,211 - owera.utils.code_generator - INFO - Generating output files
+2025-05-09 17:59:00,214 - owera.utils.code_generator - INFO - Generated app code at my-blog/src/app.py
+2025-05-09 17:59:00,214 - owera.utils.code_generator - INFO - Created templates directory: my-blog/templates
+2025-05-09 17:59:00,214 - owera.utils.code_generator - INFO - Generated login template: my-blog/templates/login.html
+2025-05-09 17:59:00,215 - owera.utils.code_generator - INFO - Generated register template: my-blog/templates/register.html
+2025-05-09 17:59:00,215 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/home.html
+2025-05-09 17:59:00,216 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/homepage.html
+2025-05-09 17:59:00,300 - owera.main - INFO - App generated successfully in my-blog/

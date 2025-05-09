@@ -16,6 +16,7 @@ def generate_output(project: Project, output_dir: str) -> None:
     try:
         logger.info("Generating output files")
         _create_directories(output_dir)
+        _initialize_code(project)
         _generate_app_code(project, output_dir)
         _generate_templates(project, output_dir)
         _generate_docs(project, output_dir)
@@ -32,6 +33,21 @@ def _create_directories(output_dir: str) -> None:
     os.makedirs(f"{output_dir}/templates", exist_ok=True)
     os.makedirs(f"{output_dir}/docs", exist_ok=True)
     os.makedirs(f"{output_dir}/logs", exist_ok=True)
+
+def _initialize_code(project: Project) -> None:
+    """Initialize code dictionaries."""
+    if not hasattr(project, "code"):
+        project.code = {}
+    if "backend" not in project.code:
+        project.code["backend"] = []
+    if "frontend" not in project.code:
+        project.code["frontend"] = []
+    if not hasattr(project, "designs"):
+        project.designs = {}
+    if not hasattr(project, "tasks"):
+        project.tasks = []
+    if not hasattr(project, "issues"):
+        project.issues = []
 
 def _generate_app_code(project: Project, output_dir: str) -> None:
     """Generate the main application code."""
@@ -50,9 +66,11 @@ def _get_base_app_code() -> str:
 from flask_sqlalchemy import SQLAlchemy
 import jwt
 import datetime
+import os
 from functools import wraps
 
-app = Flask(__name__)
+app = Flask(__name__, 
+    template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'templates'))
 app.config['SECRET_KEY'] = '{config.SECRET_KEY}'
 app.config['SQLALCHEMY_DATABASE_URI'] = '{config.DATABASE_URI}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -101,7 +119,7 @@ def login():
         user = User.query.filter_by(email=email, password=password).first()
         if user:
             session['user_id'] = user.id
-            return redirect(url_for('course_list'))
+            return redirect(url_for('home'))
         return render_template('login.html', error='Invalid credentials')
     return render_template('login.html')
 
@@ -124,10 +142,7 @@ def register():
 
 @app.route('/')
 def home():
-    try:
-        return redirect(url_for('course_list'))
-    except:
-        return "Error: 'course_list' route not found. Please check if the route was generated correctly.", 500
+    return render_template('home.html')
 
 @app.route('/debug')
 def debug():
@@ -142,22 +157,40 @@ with app.app_context():
 
 def _generate_templates(project: Project, output_dir: str) -> None:
     """Generate HTML templates."""
+    # Create templates directory if it doesn't exist
+    templates_dir = f"{output_dir}/templates"
+    os.makedirs(templates_dir, exist_ok=True)
+    logger.info(f"Created templates directory: {templates_dir}")
+    
     # Generate login template
     login_html = _get_login_template()
-    with open(f"{output_dir}/templates/login.html", "w") as f:
+    login_path = f"{templates_dir}/login.html"
+    with open(login_path, "w") as f:
         f.write(login_html)
+    logger.info(f"Generated login template: {login_path}")
     
     # Generate register template
     register_html = _get_register_template()
-    with open(f"{output_dir}/templates/register.html", "w") as f:
+    register_path = f"{templates_dir}/register.html"
+    with open(register_path, "w") as f:
         f.write(register_html)
+    logger.info(f"Generated register template: {register_path}")
     
     # Generate feature templates
     for feature_name, design in project.designs.items():
-        template_path = f"{output_dir}/templates/{feature_name}.html"
+        template_name = feature_name.replace("_", "")  # Remove underscores for template name
+        template_path = f"{templates_dir}/{template_name}.html"
         with open(template_path, "w") as f:
             f.write(design)
         logger.info(f"Generated template: {template_path}")
+    
+    # Generate home template if it doesn't exist
+    home_path = f"{templates_dir}/home.html"
+    if not os.path.exists(home_path):
+        home_html = _get_fallback_home_template()
+        with open(home_path, "w") as f:
+            f.write(home_html)
+        logger.info(f"Generated fallback home template: {home_path}")
 
 def _get_login_template() -> str:
     """Get the login template."""
@@ -227,6 +260,31 @@ def _get_register_template() -> str:
 </body>
 </html>"""
 
+def _get_fallback_home_template() -> str:
+    """Get a fallback home template."""
+    return """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto py-12">
+        <h2 class="text-3xl font-bold mb-6 text-center">Welcome to Our Blog</h2>
+        <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <p class="text-gray-600">This is the home page of our blog. Feel free to explore!</p>
+            <div class="mt-6">
+                <a href="{{ url_for('login') }}" class="text-blue-500 hover:text-blue-700">Login</a>
+                <span class="mx-2">|</span>
+                <a href="{{ url_for('register') }}" class="text-blue-500 hover:text-blue-700">Register</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>"""
+
 def _generate_docs(project: Project, output_dir: str) -> None:
     """Generate documentation."""
     readme_content = (
@@ -243,8 +301,13 @@ def _generate_docs(project: Project, output_dir: str) -> None:
     with open(f"{output_dir}/docs/README.md", "w") as f:
         f.write(readme_content)
     
-    # Move development log
-    os.rename("development.log", f"{output_dir}/logs/development.log")
+    # Move development log if it exists
+    if os.path.exists("development.log"):
+        os.rename("development.log", f"{output_dir}/logs/development.log")
+    else:
+        # Create an empty log file if it doesn't exist
+        with open(f"{output_dir}/logs/development.log", "w") as f:
+            f.write("Development log initialized\n")
 
 def _setup_git(output_dir: str) -> None:
     """Initialize git repository and make initial commit."""

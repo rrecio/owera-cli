@@ -1,45 +1,34 @@
 from typing import Optional
-from .base import BaseAgent
-from ..models.base import Task, Project, Feature, Issue
+from owera.agents.base import BaseAgent
+from owera.models.base import Task, Project, Issue
 
 class ProductOwner(BaseAgent):
-    """Agent responsible for validating features against specifications."""
-    
+    """Product Owner agent responsible for validating features."""
     def __init__(self):
-        """Initialize the Product Owner agent."""
         super().__init__("Product Owner")
-    
+
     def generate_prompt(self, task: Task, project: Project) -> str:
         """Generate a prompt for feature validation."""
-        code = "\n".join(project.code["backend"])
-        design = project.designs.get(task.feature.name, "")
         return (
-            f"Verify if '{task.feature.name}' meets the specification. "
-            f"Code: {code}. Design: {design}. "
-            f"Description: {task.feature.description}. "
-            f"Provide only 'Approve' or list specific discrepancies. "
-            f"Focus on:\n"
-            f"1. Requirements: Does it fulfill all specified requirements?\n"
-            f"2. Constraints: Are all constraints satisfied?\n"
-            f"3. User Value: Does it provide the intended value to users?\n"
-            f"4. Integration: Does it work well with other features?"
+            f"As a Product Owner, validate if the feature '{task.feature.name}' meets the requirements:\n"
+            f"Description: {task.feature.description}\n"
+            f"Constraints: {', '.join(task.feature.constraints)}\n\n"
+            f"Please respond with either 'Approve' or provide specific reasons for rejection."
         )
-    
+
     def process_response(self, response: str, task: Task, project: Project) -> None:
-        """Process the validation results."""
+        """Process the validation response."""
         if "approve" in response.lower():
             task.feature.is_approved = True
-            self.logger.info(f"Feature '{task.feature.name}' approved by Product Owner")
+            task.status = "done"
         else:
-            issue = Issue(response, task.feature)
-            project.issues.append(issue)
-            self.logger.warning(f"Feature '{task.feature.name}' needs revision: {response}")
-            
-            # Create a fix task
-            fix_task = Task("fix", task.feature, f"Fix: {response}")
-            fix_task.assigned_to = "Developer"
-            project.tasks.append(fix_task)
-    
+            task.feature.is_approved = False
+            task.status = "failed"
+            project.issues.append(Issue(
+                description=f"Feature validation failed: {response}",
+                feature=task.feature
+            ))
+
     def extract_code(self, response: str) -> str:
-        """Product Owner doesn't need to extract code."""
-        return response 
+        """Extract code from response (not used for Product Owner)."""
+        return "" 
