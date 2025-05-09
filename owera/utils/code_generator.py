@@ -144,6 +144,24 @@ def register():
 def home():
     return render_template('home.html')
 
+@app.route('/product_list')
+@login_required()
+def product_list():
+    items = Course.query.all()
+    return render_template('productlist.html', items=items)
+
+@app.route('/cart_page')
+@login_required()
+def cart_page():
+    items = Course.query.all()
+    return render_template('cartpage.html', items=items)
+
+@app.route('/checkout_page')
+@login_required()
+def checkout_page():
+    items = Course.query.all()
+    return render_template('checkoutpage.html', items=items)
+
 @app.route('/debug')
 def debug():
     return "Debug: App is running. Check if the expected routes (e.g., course_list) are defined."

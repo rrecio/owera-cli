@@ -428,3 +428,217 @@
 2025-05-09 17:59:00,215 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/home.html
 2025-05-09 17:59:00,216 - owera.utils.code_generator - INFO - Generated template: my-blog/templates/homepage.html
 2025-05-09 17:59:00,300 - owera.main - INFO - App generated successfully in my-blog/
+2025-05-09 18:09:18,830 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:09:18,832 - owera.agent.project manager - INFO - Planned 4 tasks
+2025-05-09 18:09:18,832 - owera.agent.ui specialist - INFO - Starting task: Design product_list
+2025-05-09 18:10:00,369 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:10:00,383 - owera.agent.ui specialist - INFO - Completed task: Design product_list
+2025-05-09 18:10:00,384 - owera.agent.ui specialist - INFO - Starting task: Design product_page
+2025-05-09 18:10:15,700 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:10:15,703 - owera.agent.ui specialist - INFO - Completed task: Design product_page
+2025-05-09 18:10:15,703 - owera.agent.ui specialist - INFO - Starting task: Design cart_page
+2025-05-09 18:10:29,731 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:10:29,732 - owera.agent.ui specialist - INFO - Completed task: Design cart_page
+2025-05-09 18:10:29,732 - owera.agent.ui specialist - INFO - Starting task: Design checkout_page
+2025-05-09 18:10:48,134 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:10:48,138 - owera.agent.ui specialist - INFO - Completed task: Design checkout_page
+2025-05-09 18:10:48,140 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:10:48,141 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 18:10:48,141 - owera.agent.developer - INFO - Starting task: Implement product_list
+2025-05-09 18:10:50,611 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:10:50,611 - owera.agent.developer - INFO - Completed task: Implement product_list
+2025-05-09 18:10:50,611 - owera.agent.developer - INFO - Starting task: Implement product_page
+2025-05-09 18:10:52,573 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:10:52,573 - owera.agent.developer - INFO - Completed task: Implement product_page
+2025-05-09 18:10:52,574 - owera.agent.developer - INFO - Starting task: Implement cart_page
+2025-05-09 18:10:55,112 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:10:55,113 - owera.agent.developer - INFO - Completed task: Implement cart_page
+2025-05-09 18:10:55,113 - owera.agent.developer - INFO - Starting task: Implement checkout_page
+2025-05-09 18:10:57,611 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:10:57,612 - owera.agent.developer - INFO - Completed task: Implement checkout_page
+2025-05-09 18:10:57,617 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:10:57,617 - owera.agent.project manager - INFO - Planned 12 tasks
+2025-05-09 18:10:57,617 - owera.agent.qa specialist - INFO - Starting task: Test product_list
+2025-05-09 18:11:05,865 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:11:05,866 - owera.agent.qa specialist - WARNING - Found issues in feature 'product_list': **Functionality:** The routes `/product_list`, `/cart_page`, and `/checkout_page` appear to function correctly, returning all courses from the database and rendering them on their respective templates.
+
+**Security:** There is no indication of direct security vulnerabilities in the provided code snippet. However, without further context about `@login_required` and how it works, it's not possible to guarantee complete security.
+
+**Performance:** The code fetches all items (`Course.query.all()`) for each route, which might lead to performance issues if there are a large number of courses, as this could result in slow page load times.
+
+**User Experience:** The interface is straightforward, and the routes seem to be designed for different stages of a shopping cart experience. However, without seeing the HTML templates or user interaction logic, it's difficult to assess the overall intuitiveness and responsiveness of the user experience.
+2025-05-09 18:11:05,867 - owera.agent.qa specialist - INFO - Completed task: Test product_list
+2025-05-09 18:11:05,867 - owera.agent.qa specialist - INFO - Starting task: Test product_page
+2025-05-09 18:11:06,925 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:11:06,925 - owera.agent.qa specialist - INFO - Feature 'product_page' passed QA testing
+2025-05-09 18:11:06,925 - owera.agent.qa specialist - INFO - Completed task: Test product_page
+2025-05-09 18:11:06,925 - owera.agent.qa specialist - INFO - Starting task: Test cart_page
+2025-05-09 18:11:08,008 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:11:08,008 - owera.agent.qa specialist - INFO - Feature 'cart_page' passed QA testing
+2025-05-09 18:11:08,008 - owera.agent.qa specialist - INFO - Completed task: Test cart_page
+2025-05-09 18:11:08,008 - owera.agent.qa specialist - INFO - Starting task: Test checkout_page
+2025-05-09 18:11:09,107 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:11:09,107 - owera.agent.qa specialist - INFO - Feature 'checkout_page' passed QA testing
+2025-05-09 18:11:09,107 - owera.agent.qa specialist - INFO - Completed task: Test checkout_page
+2025-05-09 18:11:09,107 - owera.agent.developer - INFO - Starting task: Fix: **Functionality:** The routes `/product_list`, `/cart_page`, and `/checkout_page` appear to function correctly, returning all courses from the database and rendering them on their respective templates.
+
+**Security:** There is no indication of direct security vulnerabilities in the provided code snippet. However, without further context about `@login_required` and how it works, it's not possible to guarantee complete security.
+
+**Performance:** The code fetches all items (`Course.query.all()`) for each route, which might lead to performance issues if there are a large number of courses, as this could result in slow page load times.
+
+**User Experience:** The interface is straightforward, and the routes seem to be designed for different stages of a shopping cart experience. However, without seeing the HTML templates or user interaction logic, it's difficult to assess the overall intuitiveness and responsiveness of the user experience.
+2025-05-09 18:11:18,725 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:11:18,728 - owera.agent.developer - INFO - Removing unnecessary import: from models import Course  # Assuming you have a Course model defined
+2025-05-09 18:11:18,728 - owera.agent.developer - INFO - Completed task: Fix: **Functionality:** The routes `/product_list`, `/cart_page`, and `/checkout_page` appear to function correctly, returning all courses from the database and rendering them on their respective templates.
+
+**Security:** There is no indication of direct security vulnerabilities in the provided code snippet. However, without further context about `@login_required` and how it works, it's not possible to guarantee complete security.
+
+**Performance:** The code fetches all items (`Course.query.all()`) for each route, which might lead to performance issues if there are a large number of courses, as this could result in slow page load times.
+
+**User Experience:** The interface is straightforward, and the routes seem to be designed for different stages of a shopping cart experience. However, without seeing the HTML templates or user interaction logic, it's difficult to assess the overall intuitiveness and responsiveness of the user experience.
+2025-05-09 18:11:18,728 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:11:18,728 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:11:18,728 - owera.agent.product owner - INFO - Starting task: Review product_page
+2025-05-09 18:11:19,201 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:11:19,201 - owera.agent.product owner - INFO - Completed task: Review product_page
+2025-05-09 18:11:19,201 - owera.agent.product owner - INFO - Starting task: Review cart_page
+2025-05-09 18:11:21,842 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:11:21,843 - owera.agent.product owner - INFO - Completed task: Review cart_page
+2025-05-09 18:11:21,843 - owera.agent.product owner - INFO - Starting task: Review checkout_page
+2025-05-09 18:11:22,257 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:11:22,258 - owera.agent.product owner - INFO - Completed task: Review checkout_page
+2025-05-09 18:11:22,259 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:11:22,259 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:11:22,259 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:11:22,260 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:11:22,260 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:11:22,260 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:11:22,260 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:11:22,260 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:11:22,261 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:11:22,261 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:11:22,261 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:11:22,261 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:11:22,261 - owera.main - WARNING - Reached maximum iterations
+2025-05-09 18:11:22,262 - owera.utils.code_generator - INFO - Generating output files
+2025-05-09 18:11:22,266 - owera.utils.code_generator - INFO - Generated app code at shopeasy/src/app.py
+2025-05-09 18:11:22,266 - owera.utils.code_generator - INFO - Created templates directory: shopeasy/templates
+2025-05-09 18:11:22,266 - owera.utils.code_generator - INFO - Generated login template: shopeasy/templates/login.html
+2025-05-09 18:11:22,267 - owera.utils.code_generator - INFO - Generated register template: shopeasy/templates/register.html
+2025-05-09 18:11:22,267 - owera.utils.code_generator - INFO - Generated template: shopeasy/templates/productlist.html
+2025-05-09 18:11:22,267 - owera.utils.code_generator - INFO - Generated template: shopeasy/templates/productpage.html
+2025-05-09 18:11:22,268 - owera.utils.code_generator - INFO - Generated template: shopeasy/templates/cartpage.html
+2025-05-09 18:11:22,268 - owera.utils.code_generator - INFO - Generated template: shopeasy/templates/checkoutpage.html
+2025-05-09 18:11:22,268 - owera.utils.code_generator - INFO - Generated fallback home template: shopeasy/templates/home.html
+2025-05-09 18:11:22,390 - owera.main - INFO - App generated successfully in shopeasy/
+2025-05-09 18:21:51,745 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:21:51,745 - owera.agent.project manager - INFO - Planned 4 tasks
+2025-05-09 18:21:51,745 - owera.agent.ui specialist - INFO - Starting task: Design product_list
+2025-05-09 18:22:59,200 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:22:59,213 - owera.agent.ui specialist - INFO - Completed task: Design product_list
+2025-05-09 18:22:59,213 - owera.agent.ui specialist - INFO - Starting task: Design product_page
+2025-05-09 18:23:10,121 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:23:10,122 - owera.agent.ui specialist - INFO - Completed task: Design product_page
+2025-05-09 18:23:10,122 - owera.agent.ui specialist - INFO - Starting task: Design cart_page
+2025-05-09 18:23:36,415 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:23:36,417 - owera.agent.ui specialist - INFO - Completed task: Design cart_page
+2025-05-09 18:23:36,417 - owera.agent.ui specialist - INFO - Starting task: Design checkout_page
+2025-05-09 18:24:05,263 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:24:05,275 - owera.agent.ui specialist - INFO - Completed task: Design checkout_page
+2025-05-09 18:24:05,277 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:24:05,278 - owera.agent.project manager - INFO - Planned 8 tasks
+2025-05-09 18:24:05,278 - owera.agent.developer - INFO - Starting task: Implement product_list
+2025-05-09 18:24:09,154 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:24:09,155 - owera.agent.developer - INFO - Completed task: Implement product_list
+2025-05-09 18:24:09,155 - owera.agent.developer - INFO - Starting task: Implement product_page
+2025-05-09 18:24:11,274 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:24:11,275 - owera.agent.developer - INFO - Completed task: Implement product_page
+2025-05-09 18:24:11,275 - owera.agent.developer - INFO - Starting task: Implement cart_page
+2025-05-09 18:24:13,523 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:24:13,524 - owera.agent.developer - INFO - Completed task: Implement cart_page
+2025-05-09 18:24:13,524 - owera.agent.developer - INFO - Starting task: Implement checkout_page
+2025-05-09 18:24:15,772 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:24:15,773 - owera.agent.developer - INFO - Completed task: Implement checkout_page
+2025-05-09 18:24:15,773 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:24:15,773 - owera.agent.project manager - INFO - Planned 12 tasks
+2025-05-09 18:24:15,773 - owera.agent.qa specialist - INFO - Starting task: Test product_list
+2025-05-09 18:24:16,745 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:24:16,747 - owera.agent.qa specialist - INFO - Feature 'product_list' passed QA testing
+2025-05-09 18:24:16,747 - owera.agent.qa specialist - INFO - Completed task: Test product_list
+2025-05-09 18:24:16,747 - owera.agent.qa specialist - INFO - Starting task: Test product_page
+2025-05-09 18:24:24,685 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:24:24,689 - owera.agent.qa specialist - WARNING - Found issues in feature 'product_page': **Functionality:** The code appears to serve different product-related pages (product_page, cart_page, checkout_page) by fetching all courses from the database and rendering them in specific templates. However, without actual data or a database setup, it's difficult to verify if it works as described.
+
+**Security:** There is no explicit security check that ensures the user accessing these routes is logged in. If the `@login_required` decorator is not enforced properly, any authenticated user could access these pages.
+
+**Performance:** Querying all courses with `Course.query.all()` might be inefficient for large databases and could lead to performance issues, especially if there are many courses.
+
+**User Experience:** The design of the user interface (productpage.html, cartpage.html, checkoutpage.html) is not specified, but it's important that these pages are intuitive and responsive. Without visual elements or user testing, it's hard to assess the user experience.
+2025-05-09 18:24:24,689 - owera.agent.qa specialist - INFO - Completed task: Test product_page
+2025-05-09 18:24:24,689 - owera.agent.qa specialist - INFO - Starting task: Test cart_page
+2025-05-09 18:24:30,263 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:24:30,264 - owera.agent.qa specialist - WARNING - Found issues in feature 'cart_page': - **Functionality:** The feature 'cart_page' is functional, as it renders a template displaying all courses.
+- **Security:** There are no inherent security vulnerabilities in the provided code, assuming that `@login_required` properly restricts access to authenticated users.
+- **Performance:** The performance of the 'cart_page' feature is not significantly impacted by the provided code snippet. However, if the number of courses grows large, querying and rendering could become bottlenecks.
+- **User Experience:** The interface is straightforward but lacks specific details about what actions or information should be displayed in the cart page.
+2025-05-09 18:24:30,264 - owera.agent.qa specialist - INFO - Completed task: Test cart_page
+2025-05-09 18:24:30,264 - owera.agent.qa specialist - INFO - Starting task: Test checkout_page
+2025-05-09 18:24:31,288 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:24:31,289 - owera.agent.qa specialist - INFO - Feature 'checkout_page' passed QA testing
+2025-05-09 18:24:31,289 - owera.agent.qa specialist - INFO - Completed task: Test checkout_page
+2025-05-09 18:24:31,289 - owera.agent.developer - INFO - Starting task: Fix: **Functionality:** The code appears to serve different product-related pages (product_page, cart_page, checkout_page) by fetching all courses from the database and rendering them in specific templates. However, without actual data or a database setup, it's difficult to verify if it works as described.
+
+**Security:** There is no explicit security check that ensures the user accessing these routes is logged in. If the `@login_required` decorator is not enforced properly, any authenticated user could access these pages.
+
+**Performance:** Querying all courses with `Course.query.all()` might be inefficient for large databases and could lead to performance issues, especially if there are many courses.
+
+**User Experience:** The design of the user interface (productpage.html, cartpage.html, checkoutpage.html) is not specified, but it's important that these pages are intuitive and responsive. Without visual elements or user testing, it's hard to assess the user experience.
+2025-05-09 18:24:49,327 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:24:49,329 - owera.agent.developer - INFO - Completed task: Fix: **Functionality:** The code appears to serve different product-related pages (product_page, cart_page, checkout_page) by fetching all courses from the database and rendering them in specific templates. However, without actual data or a database setup, it's difficult to verify if it works as described.
+
+**Security:** There is no explicit security check that ensures the user accessing these routes is logged in. If the `@login_required` decorator is not enforced properly, any authenticated user could access these pages.
+
+**Performance:** Querying all courses with `Course.query.all()` might be inefficient for large databases and could lead to performance issues, especially if there are many courses.
+
+**User Experience:** The design of the user interface (productpage.html, cartpage.html, checkoutpage.html) is not specified, but it's important that these pages are intuitive and responsive. Without visual elements or user testing, it's hard to assess the user experience.
+2025-05-09 18:24:49,329 - owera.agent.developer - INFO - Starting task: Fix: - **Functionality:** The feature 'cart_page' is functional, as it renders a template displaying all courses.
+- **Security:** There are no inherent security vulnerabilities in the provided code, assuming that `@login_required` properly restricts access to authenticated users.
+- **Performance:** The performance of the 'cart_page' feature is not significantly impacted by the provided code snippet. However, if the number of courses grows large, querying and rendering could become bottlenecks.
+- **User Experience:** The interface is straightforward but lacks specific details about what actions or information should be displayed in the cart page.
+2025-05-09 18:25:05,552 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:25:05,553 - owera.agent.developer - INFO - Completed task: Fix: - **Functionality:** The feature 'cart_page' is functional, as it renders a template displaying all courses.
+- **Security:** There are no inherent security vulnerabilities in the provided code, assuming that `@login_required` properly restricts access to authenticated users.
+- **Performance:** The performance of the 'cart_page' feature is not significantly impacted by the provided code snippet. However, if the number of courses grows large, querying and rendering could become bottlenecks.
+- **User Experience:** The interface is straightforward but lacks specific details about what actions or information should be displayed in the cart page.
+2025-05-09 18:25:05,553 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:25:05,553 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:25:05,553 - owera.agent.product owner - INFO - Starting task: Review product_list
+2025-05-09 18:25:14,187 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:25:14,190 - owera.agent.product owner - INFO - Completed task: Review product_list
+2025-05-09 18:25:14,190 - owera.agent.product owner - INFO - Starting task: Review checkout_page
+2025-05-09 18:25:14,581 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-05-09 18:25:14,582 - owera.agent.product owner - INFO - Completed task: Review checkout_page
+2025-05-09 18:25:14,583 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:25:14,583 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:25:14,583 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:25:14,583 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:25:14,583 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:25:14,584 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:25:14,584 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:25:14,584 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:25:14,584 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:25:14,584 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:25:14,584 - owera.agent.project manager - INFO - Planning tasks for features
+2025-05-09 18:25:14,584 - owera.agent.project manager - INFO - Planned 16 tasks
+2025-05-09 18:25:14,584 - owera.main - WARNING - Reached maximum iterations
+2025-05-09 18:25:14,584 - owera.utils.code_generator - INFO - Generating output files
+2025-05-09 18:25:14,587 - owera.utils.code_generator - INFO - Generated app code at shopeasy/src/app.py
+2025-05-09 18:25:14,588 - owera.utils.code_generator - INFO - Created templates directory: shopeasy/templates
+2025-05-09 18:25:14,589 - owera.utils.code_generator - INFO - Generated login template: shopeasy/templates/login.html
+2025-05-09 18:25:14,589 - owera.utils.code_generator - INFO - Generated register template: shopeasy/templates/register.html
+2025-05-09 18:25:14,589 - owera.utils.code_generator - INFO - Generated template: shopeasy/templates/productlist.html
+2025-05-09 18:25:14,589 - owera.utils.code_generator - INFO - Generated template: shopeasy/templates/productpage.html
+2025-05-09 18:25:14,590 - owera.utils.code_generator - INFO - Generated template: shopeasy/templates/cartpage.html
+2025-05-09 18:25:14,590 - owera.utils.code_generator - INFO - Generated template: shopeasy/templates/checkoutpage.html
+2025-05-09 18:25:14,590 - owera.utils.code_generator - INFO - Generated fallback home template: shopeasy/templates/home.html
+2025-05-09 18:25:14,710 - owera.main - INFO - App generated successfully in shopeasy/
