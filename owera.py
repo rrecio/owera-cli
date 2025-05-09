@@ -91,8 +91,9 @@ class Agent:
                 code = self.extract_code(response)
                 logging.debug(f"{self.role} extracted code: {code}")
                 if self.role == "Developer":
-                    # Post-process to fix incorrect decorator usage
+                    # Post-process to fix incorrect decorator usage and imports
                     code = self.fix_decorator_usage(code)
+                    code = self.remove_unnecessary_imports(code)
                     logging.debug(f"{self.role} post-processed code: {code}")
                 self.process_response(code, task, project)
             else:
@@ -182,6 +183,17 @@ def {self.feature.name}():
             fixed_lines.append(line)
         return '\n'.join(fixed_lines)
 
+    def remove_unnecessary_imports(self, code):
+        # Remove incorrect imports like "from models import ..."
+        lines = code.split('\n')
+        fixed_lines = []
+        for line in lines:
+            if line.startswith("from models import"):
+                logging.info(f"Removing unnecessary import: {line}")
+                continue
+            fixed_lines.append(line)
+        return '\n'.join(fixed_lines)
+
     def generate_prompt(self, task, project):
         raise NotImplementedError
 
@@ -215,6 +227,7 @@ class Developer(Agent):
             design = project.designs.get(task.feature.name, "")
             return (f"Generate a Flask route for '{task.feature.name}' in {tech_stack['backend']}. "
                     f"Return only the Python code, without explanations, comments, or imports (assume Flask, render_template, request, redirect, url_for, session, jsonify, SQLAlchemy, and db are imported). "
+                    f"The models (User, Course, Enrollment) are already defined in the file, so do NOT add any import statements for them (e.g., do NOT add 'from models import Course'). "
                     f"Define the route function as 'def {task.feature.name}():' to match the feature name. "
                     f"Use the route path '@app.route('/{task.feature.name}')'. "
                     f"Render the template '{task.feature.name}.html'. "
