@@ -49,12 +49,13 @@ class Project:
     def __init__(self, specs):
         logging.info("Initializing project with specs")
         self.specs = specs
-        if "project" not in self.specs or "features" not in self.specs.get("project", {}):
+        # Validate specs structure
+        if not isinstance(self.specs, dict) or "project" not in self.specs or not isinstance(self.specs["project"], dict) or "features" not in self.specs["project"]:
             logging.warning("Invalid specs structure. Using default features.")
             self.specs = {
                 "project": {
-                    "name": self.specs.get("project", {}).get("name", "SimpleApp"),
-                    "tech_stack": self.specs.get("project", {}).get("tech_stack", {"backend": "Python/Flask", "frontend": "HTML/CSS"}),
+                    "name": "SimpleApp",
+                    "tech_stack": {"backend": "Python/Flask", "frontend": "HTML/CSS"},
                     "features": [{"name": "home page", "description": "A basic home page to display a welcome message"}]
                 }
             }
@@ -69,7 +70,7 @@ class Project:
     def is_complete(self):
         complete = (all(f.is_approved for f in self.features) and 
                     not any(i for i in self.issues if not i.is_resolved) and 
-                    not any(t for t in self.tasks if t.status != "done"))
+                    not any(t for t in self.tasks if t.status in ["todo", "in_progress"]))
         logging.debug(f"Project completion check: {complete}")
         return complete
 
@@ -84,9 +85,13 @@ class Agent:
             logging.info(f"{self.role} is working on: {task.description}")
             response = ollama.generate(model="qwen2.5-coder:14b", prompt=prompt, options={"timeout": 60})['response']
             logging.debug(f"{self.role} raw response: {response}")
-            code = self.extract_code(response)
-            logging.debug(f"{self.role} extracted code: {code}")
-            self.process_response(code, task, project)
+            # Only extract code for UI Specialist and Developer
+            if self.role in ["UI Specialist", "Developer"]:
+                code = self.extract_code(response)
+                logging.debug(f"{self.role} extracted code: {code}")
+                self.process_response(code, task, project)
+            else:
+                self.process_response(response, task, project)
             task.status = "done"
             logging.info(f"{self.role} finished: {task.description}")
         except requests.exceptions.Timeout:
@@ -99,6 +104,17 @@ class Agent:
             project.issues.append(Issue(f"{self.role} failed: {str(e)}", task.feature))
 
     def extract_code(self, response):
+        # Handle HTML for UI Specialist
+        if self.role == "UI Specialist":
+            html_blocks = re.findall(r'```html\n(.*?)\n```', response, re.DOTALL)
+            if html_blocks:
+                return html_blocks[0].strip()
+            # Fallback: if no code block, assume the entire response is HTML
+            if response.strip().startswith('<!DOCTYPE html>') or response.strip().startswith('<html'):
+                return response.strip()
+            logging.warning(f"No HTML found in response: {response}")
+            return "<!-- Placeholder: No HTML generated -->"
+        # Handle Python code for Developer
         code_blocks = re.findall(r'```python\n(.*?)\n```', response, re.DOTALL)
         if code_blocks:
             return code_blocks[0].strip()
@@ -191,7 +207,7 @@ class ProductOwner(Agent):
         else:
             issue = Issue(response, task.feature)
             project.issues.append(issue)
-            fix_task = Task("fix", task.feature, f"Address: {response}")
+            fix_task = Task("fix", task.feature, f"Fix: {response}")
             fix_task.assigned_to = "Developer"
             project.tasks.append(fix_task)
 
@@ -251,24 +267,34 @@ def parse_spec_string(spec_string):
 
     logging.info("Attempting manual parsing of the specification string")
     try:
+        # Extract project name
         name_match = re.search(r"called\s+(\w+)", spec_string, re.IGNORECASE)
         project_name = name_match.group(1) if name_match else "SimpleApp"
 
+        # Extract features and constraints
         feature_phrases = []
+        constraints = []
         current_phrase = spec_string.lower()
+        # Split on feature indicators
         split_points = [m.start() for m in re.finditer(r'(?:with a|and a|and)\s+', current_phrase)]
         split_points.append(len(current_phrase))
         start = 0
         for end in split_points:
             phrase = current_phrase[start:end].strip()
-            if phrase and ("with a" in phrase or "and a" in phrase or start == 0):
+            if phrase:
                 feature_phrases.append(phrase)
             start = end
-        if not feature_phrases:
-            feature_phrases = [current_phrase]
 
         features = []
         for phrase in feature_phrases:
+            # Skip project description
+            if "build an" in phrase or "called" in phrase:
+                continue
+            # Extract constraints (e.g., "clean, modern design")
+            if "design" in phrase or "use a database" in phrase or "secure login" in phrase:
+                constraints.append(phrase)
+                continue
+            # Clean up the phrase for feature extraction
             phrase = phrase.replace("with a", "").replace("and a", "").replace("and", "").strip()
             parts = phrase.split(" to ")
             if len(parts) >= 2:
@@ -277,8 +303,7 @@ def parse_spec_string(spec_string):
             else:
                 name = phrase.strip()
                 description = f"Implement {name}"
-            name = re.sub(r'build\s+an?\s+|called\s+\w+\s*', '', name, flags=re.IGNORECASE).strip()
-            features.append({"name": name, "description": description})
+            features.append({"name": name, "description": description, "constraints": constraints})
 
         if not features:
             features = [{"name": "home page", "description": "A basic home page to display a welcome message"}]
@@ -286,9 +311,9 @@ def parse_spec_string(spec_string):
         parsed = {
             "project": {
                 "name": project_name,
-                "tech_stack": {"backend": "Python/Flask", "frontend": "HTML/CSS"}
-            },
-            "features": features
+                "tech_stack": {"backend": "Python/Flask", "frontend": "HTML/CSS"},
+                "features": features
+            }
         }
         logging.info(f"Manually parsed {len(features)} features: {features}")
         return parsed
@@ -297,9 +322,9 @@ def parse_spec_string(spec_string):
         return {
             "project": {
                 "name": "SimpleApp",
-                "tech_stack": {"backend": "Python/Flask", "frontend": "HTML/CSS"}
-            },
-            "features": [{"name": "home page", "description": "A basic home page to display a welcome message"}]
+                "tech_stack": {"backend": "Python/Flask", "frontend": "HTML/CSS"},
+                "features": [{"name": "home page", "description": "A basic home page to display a welcome message"}]
+            }
         }
 
 def generate_output(project, output_dir):
