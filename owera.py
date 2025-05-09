@@ -103,7 +103,7 @@ class Agent:
         if code_blocks:
             return code_blocks[0].strip()
         lines = response.split('\n')
-        code_lines = [line for line in lines if line.strip().startswith(('@app.route', 'def ', 'from ', 'import ', 'if __name__')]
+        code_lines = [line for line in lines if any(line.strip().startswith(prefix) for prefix in ('@app.route', 'def ', 'from ', 'import ', 'if __name__'))]
         if code_lines:
             return '\n'.join(code_lines).strip()
         logging.warning(f"No code found in response: {response}")
@@ -226,7 +226,6 @@ def parse_spec_string(spec_string):
         "{'project': {'name': 'AppName', 'tech_stack': {'backend': 'Python/Flask', 'frontend': 'HTML/CSS'}}, "
         "'features': [{'name': 'feature name', 'description': 'feature description', 'constraints': ['constraint1']}]}}"
     )
-    # First attempt with structured JSON parsing
     prompt = (
         f"Parse this app description into JSON with the following structure: {json_structure} "
         f"Default to Python/Flask, HTML/CSS, SQLite, JWT auth if unspecified. Ensure valid JSON output with 'features' key. "
@@ -250,14 +249,11 @@ def parse_spec_string(spec_string):
     except (json.JSONDecodeError, KeyError, requests.exceptions.Timeout) as e:
         logging.error(f"JSON parsing failed: {str(e)}. Falling back to manual parsing.")
 
-    # Fallback: Manual parsing of the specification string
     logging.info("Attempting manual parsing of the specification string")
     try:
-        # Extract project name
         name_match = re.search(r"called\s+(\w+)", spec_string, re.IGNORECASE)
         project_name = name_match.group(1) if name_match else "SimpleApp"
 
-        # Extract features by splitting on keywords like "with a", "and a", "and"
         feature_phrases = []
         current_phrase = spec_string.lower()
         split_points = [m.start() for m in re.finditer(r'(?:with a|and a|and)\s+', current_phrase)]
@@ -273,9 +269,7 @@ def parse_spec_string(spec_string):
 
         features = []
         for phrase in feature_phrases:
-            # Clean up the phrase
             phrase = phrase.replace("with a", "").replace("and a", "").replace("and", "").strip()
-            # Extract feature name and description
             parts = phrase.split(" to ")
             if len(parts) >= 2:
                 name = parts[0].strip()
@@ -283,7 +277,6 @@ def parse_spec_string(spec_string):
             else:
                 name = phrase.strip()
                 description = f"Implement {name}"
-            # Remove any remaining "build" or "called" phrases from the name
             name = re.sub(r'build\s+an?\s+|called\s+\w+\s*', '', name, flags=re.IGNORECASE).strip()
             features.append({"name": name, "description": description})
 
