@@ -56,7 +56,7 @@ class Project:
                 "project": {
                     "name": "SimpleApp",
                     "tech_stack": {"backend": "Python/Flask", "frontend": "HTML/CSS"},
-                    "features": [{"name": "home page", "description": "A basic home page to display a welcome message"}]
+                    "features": [{"name": "home_page", "description": "A basic home page to display a welcome message"}]
                 }
             }
         self.features = [Feature(f["name"], f["description"], f.get("constraints", [])) for f in self.specs["project"]["features"]]
@@ -156,7 +156,8 @@ class Developer(Agent):
             design = project.designs.get(task.feature.name, "")
             return (f"Provide only the Python code for a Flask route to implement '{task.feature.name}' in {tech_stack['backend']}. "
                     f"Do not include explanations, comments, or imports (assume Flask, render_template, request, redirect, url_for, session, jsonify, SQLAlchemy, and db are imported). "
-                    f"Render the template '{task.feature.name.replace(' ', '_')}.html'. "
+                    f"Render the template '{task.feature.name}.html'. "
+                    f"Define the route function as 'def {task.feature.name}():' to match the feature name. "
                     f"Description: {task.feature.description}. Design: {design}. Constraints: {constraints}. "
                     f"Include necessary logic (e.g., database queries, authentication) if specified in the description.")
         elif task.type == "fix":
@@ -255,7 +256,7 @@ def parse_spec_string(spec_string):
         if "project" not in parsed:
             parsed["project"] = {}
         if "features" not in parsed or not parsed["features"]:
-            parsed["features"] = [{"name": "home page", "description": "A basic home page to display a welcome message"}]
+            parsed["features"] = [{"name": "home_page", "description": "A basic home page to display a welcome message"}]
         if "tech_stack" not in parsed["project"]:
             parsed["project"]["tech_stack"] = {"backend": "Python/Flask", "frontend": "HTML/CSS"}
         if "name" not in parsed["project"]:
@@ -303,10 +304,12 @@ def parse_spec_string(spec_string):
             else:
                 name = phrase.strip()
                 description = f"Implement {name}"
+            # Normalize feature name for Flask routes
+            name = name.replace(" ", "_")
             features.append({"name": name, "description": description, "constraints": constraints})
 
         if not features:
-            features = [{"name": "home page", "description": "A basic home page to display a welcome message"}]
+            features = [{"name": "home_page", "description": "A basic home page to display a welcome message"}]
 
         parsed = {
             "project": {
@@ -323,7 +326,7 @@ def parse_spec_string(spec_string):
             "project": {
                 "name": "SimpleApp",
                 "tech_stack": {"backend": "Python/Flask", "frontend": "HTML/CSS"},
-                "features": [{"name": "home page", "description": "A basic home page to display a welcome message"}]
+                "features": [{"name": "home_page", "description": "A basic home page to display a welcome message"}]
             }
         }
 
@@ -390,7 +393,7 @@ def login():
         user = User.query.filter_by(email=email, password=password).first()
         if user:
             session['user_id'] = user.id
-            return redirect(url_for('home'))
+            return redirect(url_for('course_list'))
         return render_template('login.html', error='Invalid credentials')
     return render_template('login.html')
 
@@ -415,9 +418,18 @@ def register():
 def home():
     return redirect(url_for('course_list'))
 
+# Fallback route for debugging
+@app.route('/debug')
+def debug():
+    return "Debug: App is running. Check if the expected routes (e.g., course_list) are defined."
+
 with app.app_context():
     db.create_all()
 """
+        # Log the generated routes
+        logging.info("Generated routes:")
+        for route_code in project.code["backend"]:
+            logging.info(f"Route: {route_code}")
         app_code += "\n".join(project.code["backend"])
         app_code += """
 if __name__ == "__main__":
@@ -497,7 +509,7 @@ if __name__ == "__main__":
             f.write(register_html)
 
         for feature_name, design in project.designs.items():
-            with open(f"{output_dir}/templates/{feature_name.replace(' ', '_')}.html", "w") as f:
+            with open(f"{output_dir}/templates/{feature_name}.html", "w") as f:
                 f.write(design)
 
         with open(f"{output_dir}/docs/README.md", "w") as f:
