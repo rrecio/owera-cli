@@ -9,6 +9,7 @@ from tqdm import tqdm
 import sys
 import requests
 import re
+from functools import wraps
 
 # Configure logging for both file and console output
 logging.basicConfig(
@@ -83,12 +84,16 @@ class Agent:
             prompt = self.generate_prompt(task, project)
             logging.debug(f"{self.role} prompt: {prompt}")
             logging.info(f"{self.role} is working on: {task.description}")
-            response = ollama.generate(model="qwen2.5-coder:14b", prompt=prompt, options={"timeout": 60})['response']
+            response = ollama.generate(model="qwen2.5-coder:7b", prompt=prompt, options={"timeout": 60})['response']
             logging.debug(f"{self.role} raw response: {response}")
             # Only extract code for UI Specialist and Developer
             if self.role in ["UI Specialist", "Developer"]:
                 code = self.extract_code(response)
                 logging.debug(f"{self.role} extracted code: {code}")
+                if self.role == "Developer":
+                    # Post-process to fix incorrect decorator usage
+                    code = self.fix_decorator_usage(code)
+                    logging.debug(f"{self.role} post-processed code: {code}")
                 self.process_response(code, task, project)
             else:
                 self.process_response(response, task, project)
@@ -112,8 +117,28 @@ class Agent:
             # Fallback: if no code block, assume the entire response is HTML
             if response.strip().startswith('<!DOCTYPE html>') or response.strip().startswith('<html'):
                 return response.strip()
+            # Broader fallback: look for any HTML-like content
+            lines = response.split('\n')
+            html_lines = [line for line in lines if line.strip().startswith(('<', '!DOCTYPE'))]
+            if html_lines:
+                return '\n'.join(html_lines).strip()
             logging.warning(f"No HTML found in response: {response}")
-            return "<!-- Placeholder: No HTML generated -->"
+            return """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placeholder</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto py-12">
+        <h2 class="text-3xl font-bold mb-6 text-center">Placeholder: {self.feature.name}</h2>
+        <p class="text-center">This is a placeholder template for {self.feature.name}.</p>
+    </div>
+</body>
+</html>
+"""
         # Handle Python code for Developer
         code_blocks = re.findall(r'```python\n(.*?)\n```', response, re.DOTALL)
         if code_blocks:
@@ -129,13 +154,33 @@ class Agent:
             if line.startswith(('@app.route', 'def ', 'from ', 'import ', 'if __name__')) or in_code:
                 code_lines.append(line)
                 in_code = True
+            # Include common Flask patterns
+            elif in_code and (line.startswith(('#', 'return', 'if ', 'for ', 'while ', 'try ', 'except ', 'with ', 'class ', '@login_required')) or any(line.startswith(prefix) for prefix in ('courses =', 'user =', 'enrollment ='))):
+                code_lines.append(line)
             # Stop collecting if we hit a non-code line after starting
-            elif in_code and not (line.startswith(('#', 'return', 'if ', 'for ', 'while ', 'try ', 'except ', 'with ', 'class ')) or any(line.startswith(prefix) for prefix in ('courses =', 'user =', 'enrollment ='))):
+            elif in_code and not line.startswith(('#', 'return', 'if ', 'for ', 'while ', 'try ', 'except ', 'with ', 'class ', '@login_required')):
                 break
         if code_lines:
             return '\n'.join(code_lines).strip()
-        logging.warning(f"No code found in response: {response}")
-        return f"@app.route('/{self.feature.name}')\ndef {self.feature.name}():\n    return 'Placeholder: {self.feature.name} route'"
+        logging.warning(f"No valid Python code found in response: {response}")
+        # Fallback: generate a minimal functional route
+        auth_required = any("secure login" in constraint.lower() for constraint in self.feature.constraints)
+        decorator = "@login_required" if auth_required else ""
+        return f"""@app.route('/{self.feature.name}')
+{decorator}
+def {self.feature.name}():
+    items = Course.query.all() if 'course' in '{self.feature.name}' else []
+    return render_template('{self.feature.name}.html', items=items)"""
+
+    def fix_decorator_usage(self, code):
+        # Fix incorrect usage of @login_required() by removing parentheses
+        lines = code.split('\n')
+        fixed_lines = []
+        for line in lines:
+            if "@login_required()" in line:
+                line = line.replace("@login_required()", "@login_required")
+            fixed_lines.append(line)
+        return '\n'.join(fixed_lines)
 
     def generate_prompt(self, task, project):
         raise NotImplementedError
@@ -149,6 +194,7 @@ class UISpecialist(Agent):
 
     def generate_prompt(self, task, project):
         constraints = ", ".join(task.feature.constraints) if task.feature.constraints else "responsive, modern design"
+        self.feature = task.feature  # Store feature for use in extract_code
         return (f"Provide only the HTML code for a responsive template for '{task.feature.name}' using Tailwind CSS via CDN. "
                 f"Do not include explanations or comments, just the raw HTML code. "
                 f"Description: {task.feature.description}. Constraints: {constraints}.")
@@ -167,12 +213,15 @@ class Developer(Agent):
         self.feature = task.feature  # Store feature for use in extract_code
         if task.type == "implement":
             design = project.designs.get(task.feature.name, "")
-            return (f"Provide only the Python code for a Flask route to implement '{task.feature.name}' in {tech_stack['backend']}. "
-                    f"Do not include explanations, comments, or imports (assume Flask, render_template, request, redirect, url_for, session, jsonify, SQLAlchemy, and db are imported). "
-                    f"Render the template '{task.feature.name}.html'. "
+            return (f"Generate a Flask route for '{task.feature.name}' in {tech_stack['backend']}. "
+                    f"Return only the Python code, without explanations, comments, or imports (assume Flask, render_template, request, redirect, url_for, session, jsonify, SQLAlchemy, and db are imported). "
                     f"Define the route function as 'def {task.feature.name}():' to match the feature name. "
+                    f"Use the route path '@app.route('/{task.feature.name}')'. "
+                    f"Render the template '{task.feature.name}.html'. "
+                    f"If the feature involves displaying items (e.g., courses), query the database using Course.query.all() and pass the results to the template as 'items'. "
+                    f"If authentication is required, use the @login_required decorator without parentheses (e.g., @login_required, NOT @login_required()). "
                     f"Description: {task.feature.description}. Design: {design}. Constraints: {constraints}. "
-                    f"Include necessary logic (e.g., database queries, authentication) if specified in the description.")
+                    f"Include necessary logic (e.g., database queries, authentication) as specified in the description.")
         elif task.type == "fix":
             code = "\n".join(project.code["backend"])
             return (f"Fix the issue in the Flask route for '{task.feature.name}': {task.description}. "
@@ -263,7 +312,7 @@ def parse_spec_string(spec_string):
     )
     try:
         logging.info("Sending request to Ollama for JSON parsing...")
-        response = ollama.generate(model="qwen2.5-coder:14b", prompt=prompt, options={"timeout": 60})['response']
+        response = ollama.generate(model="qwen2.5-coder:7b", prompt=prompt, options={"timeout": 60})['response']
         logging.debug(f"Raw JSON parsing response: {response}")
         parsed = json.loads(response)
         if "project" not in parsed:
@@ -352,10 +401,12 @@ def generate_output(project, output_dir):
         os.makedirs(f"{output_dir}/docs", exist_ok=True)
         os.makedirs(f"{output_dir}/logs", exist_ok=True)
 
-        app_code = """from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+        # Base Flask app code with predefined routes
+        app_code_base = """from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import jwt
 import datetime
+from functools import wraps
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
@@ -387,6 +438,7 @@ class Enrollment(db.Model):
 
 def login_required(role=None):
     def decorator(f):
+        @wraps(f)
         def wrapped_function(*args, **kwargs):
             if 'user_id' not in session:
                 return redirect(url_for('login'))
@@ -394,7 +446,6 @@ def login_required(role=None):
             if role and user.role != role:
                 return jsonify({'error': 'Unauthorized'}), 403
             return f(*args, **kwargs)
-        wrapped_function.__name__ = f.__name__
         return wrapped_function
     return decorator
 
@@ -447,15 +498,19 @@ def internal_error(error):
 with app.app_context():
     db.create_all()
 """
+
         # Log the generated routes
         logging.info("Generated routes:")
         for route_code in project.code["backend"]:
             logging.info(f"Route: {route_code}")
-        app_code += "\n".join(project.code["backend"])
-        app_code += """
-if __name__ == "__main__":
-    app.run(debug=True)
-"""
+
+        # Combine predefined routes with generated routes
+        app_code = app_code_base + "\n\n" + "\n\n".join(project.code["backend"]) + "\n\nif __name__ == \"__main__\":\n    app.run(debug=True)\n"
+
+        # Log the final app code to verify the / route
+        logging.debug(f"Final app.py code:\n{app_code}")
+
+        # Write the app code to file
         with open(f"{output_dir}/src/app.py", "w") as f:
             f.write(app_code)
 
