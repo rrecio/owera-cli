@@ -1,0 +1,52 @@
+{
+  "name": "ShopEasy",
+  "tech_stack": {
+    "backend": "Python/Flask",
+    "frontend": "HTML/CSS"
+  },
+  "features": [
+    {
+      "name": "product_list",
+      "description": "Browse products with filters",
+      "constraints": [
+        "responsive design",
+        "filtering",
+        "sorting",
+        "pagination"
+      ],
+      "status": "planned",
+      "priority": 1
+    },
+    {
+      "name": "product_page",
+      "description": "View product details",
+      "constraints": [
+        "responsive design"
+      ],
+      "status": "planned",
+      "priority": 1
+    },
+    {
+      "name": "cart_page",
+      "description": "Manage shopping cart",
+      "constraints": [
+        "secure login",
+        "real-time updates"
+      ],
+      "status": "planned",
+      "priority": 1
+    },
+    {
+      "name": "checkout_page",
+      "description": "Complete purchases",
+      "constraints": [
+        "secure login",
+        "use a database"
+      ],
+      "status": "planned",
+      "priority": 1
+    }
+  ],
+  "tasks": [],
+  "status": "initialized"
+}

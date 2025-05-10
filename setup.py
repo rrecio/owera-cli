@@ -1,36 +1,21 @@
 from setuptools import setup, find_packages
 
+def read_requirements(filename):
+    with open(f"requirements/{filename}") as f:
+        return [
+            line.strip()
+            for line in f
+            if not line.startswith("#") and line.strip()
+        ]
+
 setup(
     name="owera",
     version="0.1.0",
     packages=find_packages(),
-    install_requires=[
-        "click>=8.0.0",
-        "flask>=2.0.0",
-        "gitpython>=3.1.0",
-        "ollama>=0.1.0",
-        "tqdm>=4.65.0",
-        "python-dotenv>=0.19.0",
-        "werkzeug>=2.0.0",
-        "jinja2>=3.0.0",
-        "sqlalchemy>=1.4.0",
-        "bcrypt>=4.0.0",
-        "requests>=2.26.0"
-    ],
+    install_requires=read_requirements("base.txt"),
     extras_require={
-        "dev": [
-            "pytest>=7.4.3",
-            "pytest-cov>=4.1.0",
-            "pytest-mock>=3.12.0",
-            "pytest-env>=1.1.3",
-            "pytest-timeout>=2.2.0",
-            "pytest-xdist>=3.5.0",
-            "coverage>=7.3.2",
-            "black>=23.11.0",
-            "flake8>=6.1.0",
-            "mypy>=1.7.1",
-            "isort>=5.12.0"
-        ]
+        "dev": read_requirements("dev.txt"),
+        "test": read_requirements("test.txt")
     },
     entry_points={
         "console_scripts": [

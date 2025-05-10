@@ -1,0 +1,74 @@
+# CursorRules for owera-cli and generated Flask projects
+
+[General]
+# Use these rules to help Cursor understand project structure, navigation, and safe editing practices.
+
+[Ignore]
+# Ignore generated or temporary files and directories
+__pycache__/
+*.pyc
+*.pyo
+*.log
+*.sqlite3
+*.db
+*.egg-info/
+dist/
+build/
+logs/
+.env
+.venv/
+venv/
+*.bak
+.DS_Store
+
+# Ignore test artifacts and deleted files
+shopeasy/tests/
+shopeasy/templates/
+shopeasy/src/routes.py
+
+[Navigation]
+# Main CLI entrypoint
+owera/cli.py
+
+# Core models and agents
+owera/models/
+owera/agents/
+owera/generator/
+
+# Configuration and environment
+owera/config.py
+owera/models/base.py
+
+# Generated project structure (example: shopeasy)
+shopeasy/app.py
+shopeasy/models.py
+shopeasy/routes.py
+shopeasy/templates/
+shopeasy/static/
+
+[BestPractices]
+# Always use the CLI to generate new projects or features, do not manually edit generated files unless necessary.
+# When updating template or route naming conventions, ensure consistency across all agents and the code generator.
+# Regenerate the project after making changes to the code generator or agent logic.
+# Use editable installs (`pip install -e .`) for local development of the owera package.
+# Ensure the logs directory exists before running the CLI or generated apps.
+# When debugging Flask errors, check for:
+#   - Duplicate app instances or route decorators
+#   - Template naming mismatches
+#   - Missing or misnamed templates in the templates/ directory
+
+[Testing]
+# Place all tests in the tests/ directory of the generated project.
+# Use pytest for running tests.
+# Remove or ignore test files if not needed in production.
+
+[Conventions]
+# Template files should use lowercase names without underscores (e.g., home.html, productlist.html).
+# All agents and the code generator must use the same naming conventions for templates and routes.
+# Environment variables should be managed via owera/config.py and .env files.
+
+[DoNotEdit]
+# Do not manually edit files in owera/agents/ unless you are updating agent logic.
+# Do not edit generated files in shopeasy/ except for debugging or extending features.
+
+# End of cursorrules

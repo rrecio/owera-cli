@@ -1,6 +1,73 @@
+"""Tests for the Config class."""
+
 import os
 import pytest
 from owera.config import Config
+
+@pytest.fixture
+def config(tmp_path):
+    """Create a Config instance for testing."""
+    return Config(str(tmp_path))
+
+def test_config_creation(config):
+    """Test creating a new Config instance."""
+    assert os.path.exists(config.config_dir)
+    assert os.path.exists(config.config_file)
+    assert config.projects_dir is not None
+    assert config.template_dir is not None
+
+def test_config_load(config):
+    """Test loading configuration."""
+    # Load configuration
+    config.load()
+    
+    assert config.projects_dir is not None
+    assert config.template_dir is not None
+
+def test_config_save(config):
+    """Test saving configuration."""
+    # Set configuration
+    config.projects_dir = "/tmp/projects"
+    config.template_dir = "/tmp/templates"
+    
+    # Save configuration
+    config.save()
+    
+    # Load configuration
+    config.load()
+    
+    assert config.projects_dir == "/tmp/projects"
+    assert config.template_dir == "/tmp/templates"
+
+def test_config_get_set(config):
+    """Test getting and setting configuration values."""
+    # Set configuration
+    config.set("test_key", "test_value")
+    
+    # Get configuration
+    assert config.get("test_key") == "test_value"
+    
+    # Get non-existent configuration
+    assert config.get("non_existent") is None
+    
+    # Get non-existent configuration with default
+    assert config.get("non_existent", "default") == "default"
+
+def test_config_environment_variables(config):
+    """Test environment variables."""
+    # Set environment variables
+    os.environ["OWERA_PROJECTS_DIR"] = "/tmp/projects"
+    os.environ["OWERA_TEMPLATE_DIR"] = "/tmp/templates"
+    
+    # Load configuration
+    config.load()
+    
+    assert config.projects_dir == "/tmp/projects"
+    assert config.template_dir == "/tmp/templates"
+    
+    # Clear environment variables
+    del os.environ["OWERA_PROJECTS_DIR"]
+    del os.environ["OWERA_TEMPLATE_DIR"]
 
 def test_config_default_values():
     """Test default configuration values."""

@@ -2,8 +2,11 @@ import pytest
 import os
 import tempfile
 import logging
-from owera.models.base import Project, Feature, Task, Issue
+import yaml
+from pathlib import Path
+from owera.models.base import Project, Feature, Task, Issue, BaseModel
 from owera.config import Config
+from owera.agents.base import BaseAgent
 
 @pytest.fixture(scope="session")
 def test_config():
@@ -108,4 +111,41 @@ def mock_ollama(monkeypatch):
     def mock_generate(*args, **kwargs):
         return "Mocked response"
     
-    monkeypatch.setattr("ollama.generate", mock_generate) 
+    monkeypatch.setattr("ollama.generate", mock_generate)
+
+def load_config():
+    config_path = Path("config/default.yaml")
+    with open(config_path) as f:
+        return yaml.safe_load(f)
+
+@pytest.fixture(scope="session")
+def config():
+    """Load test configuration."""
+    return load_config()
+
+@pytest.fixture(scope="function")
+def base_agent(config):
+    """Create a base agent instance."""
+    return BaseAgent(config)
+
+@pytest.fixture(scope="function")
+def base_model():
+    """Create a base model instance."""
+    return BaseModel()
+
+@pytest.fixture(scope="function")
+def test_app():
+    """Create a test Flask application."""
+    from flask import Flask
+    app = Flask(__name__)
+    app.config.update({
+        'TESTING': True,
+        'SQLALCHEMY_DATABASE_URI': 'sqlite:///:memory:',
+        'WTF_CSRF_ENABLED': False
+    })
+    return app
+
+@pytest.fixture(scope="function")
+def client(test_app):
+    """Create a test client."""
+    return test_app.test_client() 

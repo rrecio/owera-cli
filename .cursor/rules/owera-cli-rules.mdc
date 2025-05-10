@@ -1,0 +1,201 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Owera CLI General Rules
+
+## Introduction
+Owera CLI is an open-source, AI-powered command-line tool designed to automate web app development. It transforms user-provided app specifications into functional Flask-based web applications using AI agents for design, development, testing, and review. This document outlines the general rules, guidelines, and best practices for using Owera CLI, contributing to the project, and engaging with the community. By participating in the Owera CLI ecosystem, you agree to adhere to these rules to ensure a productive, respectful, and collaborative environment.
+
+## 1. Usage Rules
+Owera CLI is designed to streamline web app development, but users must follow these rules to ensure proper functionality and compliance with the project’s goals.
+
+### 1.1 System Requirements
+- Ensure your system meets the minimum requirements:
+  - Python 3.8 or higher.
+  - pip (Python package manager).
+  - Git for version control.
+  - Ollama for running AI models (e.g., `qwen2.5-coder:7b`).
+- Verify sufficient disk space and write permissions in the output directory for generated files.
+
+### 1.2 Installation and Setup
+- Follow the installation steps outlined in the [README](README.md#installation).
+- Install all required dependencies using:
+  ```bash
+  pip install -e .
+  ```
+- Configure environment variables as needed (e.g., `OWERA_SECRET_KEY`, `OWERA_MODEL`). See the [README](README.md#configuration) for details.
+
+### 1.3 App Specification Format
+- Provide app specifications in either a natural language string or YAML format, following the guidelines in the [App Specification Format Guide](README.md#app-specification-format-guide).
+- Use clear, unique feature names and descriptions to avoid parsing errors.
+- Specify constraints (e.g., "secure login", "use a database") explicitly to ensure correct implementation.
+- Test with simple specs first to verify functionality before creating complex apps.
+- When using YAML format, ensure proper syntax and structure as shown in the examples in the [README](README.md#app-specification-format-guide).
+
+### 1.4 Generated Code Usage
+- Owera CLI generates code under the MIT License, which you can use, modify, and distribute freely, provided you include the license and copyright notice.
+- Review generated code for accuracy and security before deploying to production environments.
+- Do not use the generated Flask development server in production; use a production WSGI server (e.g., Gunicorn) instead, as warned in the app output.
+
+### 1.5 Limitations
+- Owera CLI is in alpha and may have bugs or incomplete features (e.g., `real-time updates`, `file upload` are not yet supported).
+- The tool currently supports only the default tech stack (Python/Flask, HTML/CSS with Tailwind, SQLite, JWT). Custom tech stacks may be ignored.
+- Generated apps are prototypes; additional development may be required for production readiness.
+
+## 2. Community Guidelines
+The Owera CLI community is a collaborative space for users, contributors, and maintainers. These guidelines ensure a respectful and productive environment.
+
+### 2.1 Code of Conduct
+- **Be Respectful**: Treat all community members with kindness, regardless of their background, experience level, or opinions.
+- **No Harassment**: Harassment, discrimination, or abusive behavior will not be tolerated, including offensive language, threats, or personal attacks.
+- **Constructive Feedback**: Provide feedback respectfully and constructively, focusing on ideas and solutions rather than individuals.
+- **Inclusivity**: Welcome diverse perspectives and encourage participation from all community members.
+
+### 2.2 Communication Channels
+- **Discord**: Use the official Owera CLI Discord server for community discussions, support, and collaboration.
+  - Follow channel-specific rules (e.g., #support for help, #ideas-and-feedback for suggestions).
+  - Do not spam or post off-topic messages.
+- **GitHub Issues**: Use GitHub Issues for bug reports, feature requests, and technical discussions.
+  - Search for existing issues before creating a new one.
+  - Provide clear, detailed information (e.g., error logs, steps to reproduce).
+- **Email**: Contact [info@owera.ai](mailto:info@owera.ai) for private inquiries, partnership opportunities, or commercial support.
+
+### 2.3 Community Contributions
+- Share your generated apps, tutorials, or case studies in the #general or #showcase channels on Discord to inspire others.
+- Provide constructive feedback on Owera CLI’s features, usability, or documentation in the #ideas-and-feedback channel or via GitHub Issues.
+- Respect the contributions of others and give credit where due.
+
+## 3. Contribution Rules
+Owera CLI welcomes contributions from the community to improve the tool and grow its ecosystem. These rules ensure a smooth contribution process.
+
+### 3.1 Contribution Process
+- Follow the contribution steps outlined in the [README](README.md#contributing):
+  1. Fork the repository.
+  2. Create a feature branch (`git checkout -b feature/your-feature-name`).
+  3. Commit your changes (`git commit -m "Add your feature description"`).
+  4. Push to the branch (`git push origin feature/your-feature-name`).
+  5. Open a pull request with a detailed description.
+- Ensure your pull request addresses a specific issue or feature request (link to the relevant GitHub Issue if applicable).
+- Write clear commit messages and follow the project’s coding style (e.g., PEP 8 for Python).
+
+### 3.2 Code Quality Standards
+- Write clean, modular, and well-documented code.
+- Include tests for new features or bug fixes where applicable.
+- Ensure compatibility with the `qwen2.5-coder:7b` model used by Ollama.
+- Avoid breaking changes to existing functionality; discuss major changes in a GitHub Issue first.
+
+### 3.3 Contributor License Agreement (CLA)
+- By contributing to Owera CLI, you agree to license your contributions under the MIT License.
+- Contributions may be relicensed for commercial purposes (e.g., for a hosted API or premium features). You retain copyright to your work but grant Owera CLI maintainers the right to use, modify, and distribute it.
+
+### 3.4 Review Process
+- Pull requests will be reviewed by maintainers within 7 days.
+- Address feedback promptly to expedite the merge process.
+- Maintainers may request changes or additional documentation before merging.
+
+### 3.5 Recognition
+- Contributors will be recognized on the “Wall of Contributors” page on the Owera CLI website.
+- Significant contributions may earn you a “Contributor” role on Discord and a feature in the “Owera CLI Chronicles” blog series.
+
+## 4. Commercial Use Rules
+Owera CLI supports commercial use under the MIT License, with additional guidelines for businesses.
+
+### 4.1 Free Usage
+- Businesses can use Owera CLI to generate, modify, and deploy web apps for free, provided they comply with the MIT License terms (include the license and copyright notice in distributions).
+
+### 4.2 Support Products
+- Businesses can support Owera CLI’s development by purchasing products like the Supporter Pack ($25), Infrastructure Hero subscription ($10/month), or Storyteller Bundle ($50). See the [README](README.md#commercial-use) for details.
+- These purchases help fund infrastructure, AI model training, and new features, ensuring the project’s sustainability.
+
+### 4.3 Future Premium Features
+- Owera CLI plans to introduce premium features (e.g., hosted API, premium support plans) for commercial users. These will be optional and will not affect the core open-source tool.
+- Businesses interested in custom solutions or early access to premium features can contact [info@owera.ai](mailto:info@owera.ai).
+
+### 4.4 Commercial Contributions
+- Businesses contributing to Owera CLI (e.g., code, sponsorships) will be recognized on the “Wall of Supporters” or “Infrastructure Heroes” leaderboard on the website.
+- Sponsorship opportunities are available for companies interested in supporting Owera CLI’s growth. Email [info@owera.ai](mailto:info@owera.ai) for details.
+
+## 5. Privacy and Data Handling
+Owera CLI values user privacy and follows strict data handling practices.
+
+### 5.1 Data Collection
+- Owera CLI does not currently collect user data or telemetry.
+- Future versions may introduce optional telemetry (with user consent) to improve the tool. This will be transparently communicated in the [README](README.md#privacy-and-telemetry).
+
+### 5.2 Generated Apps
+- Generated apps may include user data in the SQLite database (`database.db`). Users are responsible for securing this data in production environments.
+- Owera CLI does not access or store data from generated apps.
+
+### 5.3 Third-Party Services
+- Owera CLI uses Ollama for AI model inference. Ensure you comply with Ollama’s terms of service and privacy policy when using their models.
+- Generated apps use third-party libraries (e.g., Flask, Tailwind CSS). Review their licenses and privacy policies for compliance.
+
+## 6. Support and Issue Reporting
+Owera CLI provides multiple channels for support and issue reporting.
+
+### 6.1 Support Channels
+- **Discord**: Join the official Owera CLI Discord server and post in the #support channel for community assistance.
+- **GitHub Issues**: Report bugs, request features, or ask questions via [GitHub Issues](https://github.com/rrecio/owera-cli/issues).
+- **Email**: Contact [info@owera.ai](mailto:info@owera.ai) for private inquiries, commercial support, or partnership opportunities.
+
+### 6.2 Issue Reporting Guidelines
+- Search for existing issues before creating a new one.
+- Provide detailed information, including:
+  - Steps to reproduce the issue.
+  - Error messages and stack traces (if applicable).
+  - Your app specification and environment details (e.g., Python version, OS).
+- Enable debug logging to gather additional information:
+  ```bash
+  export OWERA_DEBUG="True"
+  export OWERA_LOG_LEVEL="DEBUG"
+  owera --spec "..." --output my-app --debug
+  ```
+- Attach the `development.log` from the generated app’s `logs/` folder if relevant.
+
+## 7. Project Maintenance and Updates
+Owera CLI is actively maintained by its core team and community contributors.
+
+### 7.1 Updates
+- New features, bug fixes, and improvements are released periodically. Check the [GitHub Releases](https://github.com/rrecio/owera-cli/releases) page for updates.
+- Major changes will be announced in the #announcements channel on Discord and via the project’s blog on [https://cli.owera.ai](https://cli.owera.ai).
+
+### 7.2 Backward Compatibility
+- As an alpha project, Owera CLI may introduce breaking changes between releases. Review release notes before upgrading.
+- Generated apps are not guaranteed to be compatible with future versions of Owera CLI. Pin your Owera CLI version in your project dependencies to avoid disruptions.
+
+### 7.3 Deprecation Policy
+- Features or functionality marked for deprecation will be announced at least one release in advance, with alternatives provided where possible.
+
+## 8. Violations and Enforcement
+Violations of these rules may result in consequences to maintain a positive community environment.
+
+### 8.1 Reporting Violations
+- Report violations of the Code of Conduct or other rules to [info@owera.ai](mailto:info@owera.ai) or via a private message to a moderator on Discord.
+- Provide details of the incident, including screenshots or logs if applicable.
+
+### 8.2 Enforcement Actions
+- **Warnings**: First-time minor violations will result in a private warning with guidance on correcting behavior.
+- **Temporary Bans**: Repeated or severe violations (e.g., harassment, spam) may result in a temporary ban from Discord or GitHub contributions.
+- **Permanent Bans**: Egregious violations (e.g., persistent abuse, malicious code contributions) will result in a permanent ban from the community and project.
+
+### 8.3 Appeals
+- If you believe an enforcement action was unfair, email [info@owera.ai](mailto:info@owera.ai) with your appeal, including details and evidence supporting your case.
+- Appeals will be reviewed by the core team within 14 days.
+
+## 9. Contact Information
+For questions, support, or partnership inquiries, reach out to:
+- **Email**: [info@owera.ai](mailto:info@owera.ai)
+- **Website**: [https://cli.owera.ai](https://cli.owera.ai)
+- **GitHub**: [https://github.com/rrecio/owera-cli](https://github.com/rrecio/owera-cli)
+- **Discord**: Join our community server (link on the website)
+
+## 10. Amendments
+These rules may be updated to reflect the evolving needs of the Owera CLI project and community. Changes will be announced in the #announcements channel on Discord and updated on GitHub. Significant changes will include a 30-day notice period for community feedback.
+
+---
+
+**Last Updated**: May 10, 2025  
+Owera CLI Core Team  
+[info@owera.ai](mailto:info@owera.ai)

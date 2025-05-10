@@ -5,7 +5,7 @@ import requests
 import ollama
 from datetime import datetime
 from ..models.base import Task, Project, Feature, Issue
-from ..config import config
+from ..config import config, Config
 
 class OweraError(Exception):
     """Base exception for Owera CLI."""
@@ -22,10 +22,33 @@ class TimeoutError(AgentError):
 class BaseAgent(ABC):
     """Base class for all agents in the system."""
     
-    def __init__(self, role: str):
-        """Initialize the agent with a role."""
-        self.role = role
-        self.logger = logging.getLogger(f"owera.agent.{role.lower()}")
+    def __init__(self, config: Optional[Config] = None):
+        """Initialize agent."""
+        self.config = config or Config()
+        self.logger = logging.getLogger(self.__class__.__name__)
+    
+    def validate(self) -> bool:
+        """Validate agent configuration."""
+        return True
+    
+    def _log_error(self, message: str, error: Optional[Exception] = None) -> None:
+        """Log an error message."""
+        if error:
+            self.logger.error(f"{message}: {str(error)}")
+        else:
+            self.logger.error(message)
+    
+    def _log_info(self, message: str) -> None:
+        """Log an info message."""
+        self.logger.info(message)
+    
+    def _log_debug(self, message: str) -> None:
+        """Log a debug message."""
+        self.logger.debug(message)
+    
+    def _log_warning(self, message: str) -> None:
+        """Log a warning message."""
+        self.logger.warning(message)
     
     def perform_task(self, task: Task, project: Project) -> None:
         """Perform a task using the agent's capabilities."""
@@ -92,8 +115,8 @@ class BaseAgent(ABC):
         lines = code.split('\n')
         fixed_lines = []
         for line in lines:
-            if "@login_required()" in line:
-                line = line.replace("@login_required()", "@login_required")
+            if "@auth_required()" in line:
+                line = line.replace("@auth_required()", "@auth_required")
             fixed_lines.append(line)
         return '\n'.join(fixed_lines)
     

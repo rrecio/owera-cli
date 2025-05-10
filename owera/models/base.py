@@ -2,18 +2,24 @@ from typing import List, Optional, Dict, Any
 from dataclasses import dataclass, field
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+import json
+import os
+from pathlib import Path
 
 @dataclass
 class Feature:
     """Represents a feature in the project."""
     name: str
     description: str
-    constraints: List[str] = field(default_factory=list)
-    has_design: bool = False
-    has_implementation: bool = False
-    has_passed_tests: bool = False
-    is_approved: bool = False
-    issues: List['Issue'] = field(default_factory=list)
+    status: str = "planned"
+    requirements: List[str] = field(default_factory=list)
+    design: Optional[Dict[str, Any]] = None
+    ux_improvements: List[str] = field(default_factory=list)
+    implementation: Optional[Dict[str, Any]] = None
+    test_results: Optional[Dict[str, Any]] = None
+    quality_metrics: Optional[Dict[str, Any]] = None
+    business_impact: Optional[Dict[str, Any]] = None
+    error_history: List[Dict[str, Any]] = field(default_factory=list)
 
 @dataclass
 class Issue:
@@ -27,29 +33,14 @@ class Issue:
 @dataclass
 class Task:
     """Represents a task in the project."""
-    type: str
-    feature: Feature
     description: str
-    _status: str = field(default="todo")
+    feature: Feature
+    status: str = "planned"
     assigned_to: Optional[str] = None
-    created_at: datetime = field(default_factory=datetime.now)
-    completed_at: Optional[datetime] = None
-
-    VALID_STATUSES = ["todo", "in_progress", "done", "failed"]
-
-    @property
-    def status(self) -> str:
-        """Get the task status."""
-        return self._status
-
-    @status.setter
-    def status(self, value: str) -> None:
-        """Set the task status with validation."""
-        if value not in self.VALID_STATUSES:
-            raise ValueError(f"Invalid status: {value}. Must be one of {self.VALID_STATUSES}")
-        self._status = value
-        if value == "done":
-            self.completed_at = datetime.now()
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+    error: Optional[str] = None
+    result: Optional[Dict[str, Any]] = None
 
 @dataclass
 class User:
@@ -90,50 +81,93 @@ class Enrollment:
 
 @dataclass
 class Project:
-    """Represents a project in the system."""
+    """Represents a project."""
     name: str
-    tech_stack: Dict[str, str]
-    features: List['Feature'] = field(default_factory=list)
-    tasks: List['Task'] = field(default_factory=list)
-    issues: List['Issue'] = field(default_factory=list)
-    code: Dict[str, List[str]] = field(default_factory=lambda: {"backend": [], "frontend": []})
-    designs: Dict[str, str] = field(default_factory=dict)
-    created_at: datetime = field(default_factory=datetime.now)
-    updated_at: datetime = field(default_factory=datetime.now)
-    specs: Dict[str, Any] = field(default_factory=dict)
+    type: str
+    target_users: str
+    target_market: str
+    business_goals: List[str]
+    requirements: List[str]
+    budget: float
+    timeline: str
+    features: List[Feature] = field(default_factory=list)
+    status: str = "planned"
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+    progress: Optional[Dict[str, Any]] = None
 
-    def __init__(self, data: Dict[str, Any] = None):
-        """Initialize project from dictionary if needed."""
-        if data is None:
-            data = {
-                "project": {
-                    "name": "SimpleApp",
-                    "tech_stack": {
-                        "backend": "Python/Flask",
-                        "frontend": "HTML/CSS"
-                    }
-                },
-                "features": []
-            }
+@dataclass
+class SprintPlan:
+    """Represents a sprint plan."""
+    tasks: List[Task]
+    start_date: datetime
+    end_date: datetime
+    status: str = "planned"
+    velocity: float = 0.0
+    burndown: List[Dict[str, Any]] = field(default_factory=list)
+
+@dataclass
+class Progress:
+    """Represents project progress."""
+    completed_tasks: List[Task]
+    remaining_tasks: List[Task]
+    completion_percentage: float
+    burndown_data: List[Dict[str, Any]] = field(default_factory=list)
+    velocity: float = 0.0
+
+@dataclass
+class SprintReview:
+    """Represents a sprint review."""
+    completed_features: List[Feature]
+    remaining_features: List[Feature]
+    velocity: float
+    retrospective: str
+    metrics: Dict[str, Any] = field(default_factory=dict)
+    improvements: List[str] = field(default_factory=list)
+
+class BaseModel:
+    """Base model class for all models."""
+    
+    def __init__(self, **kwargs):
+        """Initialize model with given attributes."""
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert model to dictionary."""
+        return {
+            key: value
+            for key, value in self.__dict__.items()
+            if not key.startswith('_')
+        }
+    
+    def to_json(self) -> str:
+        """Convert model to JSON string."""
+        return json.dumps(self.to_dict(), indent=2)
+    
+    def save(self, file_path: Optional[str] = None) -> None:
+        """Save model to file."""
+        if file_path is None:
+            file_path = f"{self.__class__.__name__.lower()}.json"
         
-        self.specs = data
-        project_data = data["project"]
-        self.name = project_data["name"]
-        self.tech_stack = project_data.get("tech_stack", {
-            "backend": "Python/Flask",
-            "frontend": "HTML/CSS"
-        })
-        self.features = [
-            Feature(
-                name=f["name"],
-                description=f["description"],
-                constraints=f.get("constraints", [])
-            )
-            for f in data["features"]
-        ]
-        self.tasks = []
-        self.issues = []
-        self.code = {"backend": [], "frontend": []}
-        self.designs = {}
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now() 
+        with open(file_path, 'w') as f:
+            f.write(self.to_json())
+    
+    @classmethod
+    def load(cls, file_path: str) -> 'BaseModel':
+        """Load model from file."""
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+        return cls(**data)
+    
+    def validate(self) -> bool:
+        """Validate model data."""
+        return True
+    
+    def __str__(self) -> str:
+        """String representation of model."""
+        return f"{self.__class__.__name__}({self.to_dict()})"
+    
+    def __repr__(self) -> str:
+        """Representation of model."""
+        return self.__str__() 

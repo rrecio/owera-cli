@@ -1,0 +1,26 @@
+logging:
+  level: INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: logs/development.log
+
+agents:
+  core:
+    developer:
+      enabled: true
+      max_iterations: 10
+    qa_specialist:
+      enabled: true
+      test_coverage: 80
+  support:
+    ui_specialist:
+      enabled: true
+      design_system: tailwind
+    product_owner:
+      enabled: true
+      validation_strict: true
+
+dependencies:
+  flask: "2.3.3"
+  werkzeug: "2.3.7"
+  pytest: "7.4.3"
+  pytest_flask: "1.2.0" 
